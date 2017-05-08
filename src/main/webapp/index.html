@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="mystyle.css" rel="stylesheet">
+        <script type="text/javascript" src="jquery_downloaded.js"> </script>
+        <script type="text/javascript">
+        $(document).ready(function(){
+           
+           $("#submitb").click(function(){
+                alert("processing ...");
+                var uname = $("#uid").val();
+                var passwd = $("#pass").val();
+                validate_user(uname, passwd);
+           });
+        });
+        function validate_user(user_name, user_password){
+            $.ajax(
+                {
+                    type: "POST",
+                    url: "TODO",
+                    dataType: 'json',
+                    async: false,
+                    data: '{"userName": "' + user_name + '", "password" : "' + user_password + '"}',
+                    success: function(data, textStatus, JqXHR) {
+                        alert('User: '+ data.user + 'authenticated: '+ data.authenticated);
+
+                    }
+
+                }
+            )
+
+
+        }
+        </script>
+    </head>
+
+<body>
+    <div class="headline">
+        <h1> Team8 Blogger Platform </h1>
+    </div>
+<form method="post" action="">
+    
+
+
+User ID <br>   
+<input type="text" name="uid" value=""> <br>
+Password <br> 
+<input type="password" name="pass" value=""> <br>
+   
+
+    <table style="width:300px;">
+        <tr>
+             <td> <button type="button" onclick="location.href='file://./login/signup.html'" class="signupbtn">Sign Up</button> </td>
+        </tr>
+
+        <tr>  
+            <td> <button type="submit" class="signupbtn" name="submitb" value="Submit" >Sign In</button> </td>
+        </tr>
+
+        <tr>
+           <td> <button type="button" onclick="location.href='file://./login/forgotpass.html'" class="signupbtn">Forgot Password</button> </td>
+        </tr>
+    </table>
+</form>
+    
+    </body>
+
+    <div class="footline">
+    <footer>Copyright Team8, All right reserved </footer>
+    </div>
+
+</html>
+
+

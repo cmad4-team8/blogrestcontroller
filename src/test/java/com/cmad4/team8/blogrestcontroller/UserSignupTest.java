@@ -14,7 +14,7 @@ import com.cmad4.team8.blogrestcontroller.exceptions.BloggerException;
 
 public class UserSignupTest {
 
-	String user = "pravsp";
+	String user = "usr2";
 	String f_name = "Praveen";
 	String l_name = "Kumar";
 	String hint = "company";

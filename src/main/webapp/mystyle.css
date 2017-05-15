@@ -1,7 +1,7 @@
   /* Full-width input fields */
 input[type=text], input[type=password] {
-    width: 50%;
-    padding: 12px 100px;
+    height: 30px;
+    width: 200px;
     margin: 8px 0;
     display: inline-block;
     border: 1px solid #ccc;
@@ -10,31 +10,41 @@ input[type=text], input[type=password] {
 
 /* Set a style for all buttons */
 button {
-    /*background-color: #4CAF50;*/
-    background-color: grey;
+    background-color: cornflowerblue;
     color: white;
     padding: 14px 20px;
-    margin: 8px 0;
-    border: none;
+    margin: 8px 0px;
+    border:solid;
     cursor: pointer;
     width: 100%;
+    font-size: 25px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
 }
-
+.mheadline {
+   background-color: #0BAAAF; 
+    background-color: cornflowerblue;
+   
+   width: 90%;
+   padding: 100px;
+}
 .headline {
-background-color: #B03C55;
+background-color: #0BAAAF;
+    background-color: cornflowerblue;
+
 color: greenyellow;
 padding: 14px 20px;
 padding: 100px;
-width: 100%;
+width: 90%;
+
 
 }
 .footline {
-background-color: #B03C55;
-color: greenyellow;
-padding: 5px 5px;
+background-color:lemonchiffon;
+color: blue;
+padding: 2px 2px;
 padding: 100px;
-width: 100%;
-height: 6px;
+width: 90%;
+height: 2px;
 
 }
 /* Extra styles for the cancel button */
@@ -45,30 +55,12 @@ height: 6px;
     margin-left: 100px;
 }
 
-/* Float cancel and signup buttons and add an equal width */
-.cancelbtn,.signupbtn {
-    float: right;
+ #signupForm, #forgotpassForm, #loginForm,#LoginSuccess,#BlogerStat {
+	display: none;
+} 
+
+table#BlogerStat {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
     width: 100%;
-}
-
-/* Add padding to container elements */
-.container {
-    padding: 100px;
-}
-
-.container_button {
-    margin: 200px;
-}
-/* Clear floats */
-.clearfix::after {
-    content: "";
-    clear: both;
-    display: table;
-}
-
-/* Change styles for cancel button and signup button on extra small screens */
-@media screen and (max-width: 300px) {
-    .cancelbtn, .signupbtn {
-        width: 100%;
-    }
 }

@@ -1,76 +1,134 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title></title>
+        <title>Team8 blogger</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href="mystyle.css" rel="stylesheet">
         <script type="text/javascript" src="jquery_downloaded.js"> </script>
-        <script type="text/javascript">
-        $(document).ready(function(){
-           
-           $("#submitb").click(function(){
-                alert("processing ...");
-                var uname = $("#uid").val();
-                var passwd = $("#pass").val();
-                validate_user(uname, passwd);
-           });
-        });
-        function validate_user(user_name, user_password){
-            $.ajax(
-                {
-                    type: "POST",
-                    url: "TODO",
-                    dataType: 'json',
-                    async: false,
-                    data: '{"userName": "' + user_name + '", "password" : "' + user_password + '"}',
-                    success: function(data, textStatus, JqXHR) {
-                        alert('User: '+ data.user + 'authenticated: '+ data.authenticated);
+        <link href="mystyle.css" rel="stylesheet">
+        <script src="team8.js"></script>
 
-                    }
-
-                }
-            )
-
-
-        }
-        </script>
     </head>
 
 <body>
-    <div class="headline">
-        <h1> Team8 Blogger Platform </h1>
-    </div>
-<form method="post" action="">
+<div  class="mheadline" id='mainhead'>
+  <a href="#" id="MainLink"> <h1> TEAM8 Blogger Platform </h1></a> 
+</div>
+
+<div  class="headline" id='headline'>
+        <table>
+            <td colspan="2" ><button id="signupBtnM">Create Your Own Blog</button></td>         
+			<td colspan="2" ><button id="signinBtnM">Sign in</button></td>
+        </table>
+</div>
+
+<!-- login form -->
+<div id='loginForm'> 
+		<h1>Login </h1>
+		<table>
+			<tr>
+				<td>User ID</td>
+				<td> <input type='text' id='userid' required/> </td>
+			</tr>
+			<tr>
+				<td>Password:</td>
+				<td> <input type='password' id='passwd' required/> </td>
+			</tr>
+		    <tr>
+			
+           <td colspan="2" align="right"><button type="submit" id="signinBtn">Sign in</button> </td>
+				<!-- <td colspan="2" align="right"><button id="signupBtn">Sign Up</button></td> -->
+            <td colspan="2" align="right"><button id="forgotpBtn">Forgot Password</button></td>
+			</tr>
+		</table>
+        
+</div>
+<!-- end of login form -->
+
+<!-- ++++++ sign up form ++++++ -->
+<div id='signupForm'>
+     <h1> Registration details </h1>
+    <table> 
+    <tr>   
+        <td >First name</td>
+        <td ><input type="text" id="fname"  required> </td>
+    </tr>
+    <tr>
+        <td >Last Name</td>
+         <td ><input type="text" id="lname"  required> </td>
+    </tr>
+    <tr>
+        <td >Choose User ID</td>
+         <td ><input type="text" id="cuid"  required> </td>
+    </tr>
+    <tr>
+        <td >Create Password</td>
+        <td ><input type="password" id="cpass"  required> </td>
+    </tr>
+    <tr>
+        <td >Confirm Password</td>
+        <td ><input type="password" id="cfpass"  required> </td>
+        <td >Hint</td>
+        <td style="width:70%"><input type="text" id="uhint"  required> </td>
+     </tr>
+
+     <tr>
+        <td >Date of Birth</td>
+        <td ><input type="Date" id="udob"  required> </td>
+     </tr>
+     <tr>
+        <td >Email </td>
+        <td ><input type="text" id="cpass"  required> </td>
+     </tr>
+     <tr>
+     <td >Agree to Terms and conditions</td>
+    <td ><input type="checkbox" name="consent" value="set" required></td>
+    </tr>
+    <tr>
+		<td colspan="2" align="right"><button id="registerBtn">Register</button></td>
+        
+	</tr>
+</table>
+
+</div> 
+<!-- end of sign up form -->
     
-
-
-User ID <br>   
-<input type="text" name="uid" value=""> <br>
-Password <br> 
-<input type="password" name="pass" value=""> <br>
-   
-
-    <table style="width:300px;">
+<div id='forgotpassForm'>
+     <h1> Forgot passowrd </h1>
+     <table>
         <tr>
-             <td> <button type="button" onclick="location.href='file://./login/signup.html'" class="signupbtn">Sign Up</button> </td>
-        </tr>
-
-        <tr>  
-            <td> <button type="submit" class="signupbtn" name="submitb" value="Submit" >Sign In</button> </td>
-        </tr>
-
+            <td >Registered Email </td>
+            <td ><input type="text" id="cpass"  required> </td>
+        </tr> 
         <tr>
-           <td> <button type="button" onclick="location.href='file://./login/forgotpass.html'" class="signupbtn">Forgot Password</button> </td>
-        </tr>
-    </table>
-</form>
-    
-    </body>
+		    <td colspan="2" align="right"><button id="ForgotpassBtn">Submit</button></td>
+	    </tr>
+     </table>
+</div>   
+<!-- end of the forgotpassForm -->
+
+<div id='LoginSuccess'>
+    <h1> Successfully Validated user <h1>
+</div>
+
+<!-- end of login success -->
+
+<div  id='blogStatPage'>
+    <table id='BlogerStat'>
+          <td>Healine</td>
+          <td>User</td>
+          <td>Publish Date</td>
+          <td>Action </td>
+     </table>
+
+
+</div>
+
+</body>
 
     <div class="footline">
     <footer>Copyright Team8, All right reserved </footer>
-    </div>
+    <div>
 
 </html>
 

@@ -4,6 +4,7 @@
         <title>Team8 blogger</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
         <script type="text/javascript" src="jquery_downloaded.js"> </script>
         <link href="mystyle.css" rel="stylesheet">
         <script src="team8.js"></script>
@@ -11,17 +12,29 @@
     </head>
 
 <body>
-<div  class="mheadline" id='mainhead'>
+
+
+<header>
+<div  class="container" id='mainhead'>
   <a href="#" id="MainLink"> <h1> TEAM8 Blogger Platform </h1></a> 
-</div>
+  <table>
+     <td colspan="2" ><button id="signupBtnM">Create Your Own Blog</button></td>         
+	<td colspan="2" ><button id="signinBtnM">Sign in</button></td>
+   </table>
 
-<div  class="headline" id='headline'>
-        <table>
-            <td colspan="2" ><button id="signupBtnM">Create Your Own Blog</button></td>         
-			<td colspan="2" ><button id="signinBtnM">Sign in</button></td>
-        </table>
 </div>
+</header>
 
+<nav id='Main_nav_right'>
+  <ul>
+    <li><a href="#">Search</a></li>
+    <li><a href="#">Blog View</a></li>
+    <li><a href="#">About</a></li>
+  </ul>
+</nav>
+
+
+<article>
 <!-- login form -->
 <div id='loginForm'> 
 		<h1>Login </h1>
@@ -51,23 +64,23 @@
     <table> 
     <tr>   
         <td >First name</td>
-        <td ><input type="text" id="fname"  required> </td>
+        <td ><input type="text" id="ufname"  required> </td>
     </tr>
     <tr>
         <td >Last Name</td>
-         <td ><input type="text" id="lname"  required> </td>
+         <td ><input type="text" id="ulname"  required> </td>
     </tr>
     <tr>
         <td >Choose User ID</td>
-         <td ><input type="text" id="cuid"  required> </td>
+         <td ><input type="text" id="ucuid"  required> </td>
     </tr>
     <tr>
         <td >Create Password</td>
-        <td ><input type="password" id="cpass"  required> </td>
+        <td ><input type="password" id="ucpass"  required> </td>
     </tr>
     <tr>
         <td >Confirm Password</td>
-        <td ><input type="password" id="cfpass"  required> </td>
+        <td ><input type="password" id="ucfpass"  required> </td>
         <td >Hint</td>
         <td style="width:70%"><input type="text" id="uhint"  required> </td>
      </tr>
@@ -78,11 +91,11 @@
      </tr>
      <tr>
         <td >Email </td>
-        <td ><input type="text" id="cpass"  required> </td>
+        <td ><input type="text" id="uemail"  required> </td>
      </tr>
      <tr>
      <td >Agree to Terms and conditions</td>
-    <td ><input type="checkbox" name="consent" value="set" required></td>
+    <td ><input type="checkbox" name="consent" value="set" id="uagree" required></td>
     </tr>
     <tr>
 		<td colspan="2" align="right"><button id="registerBtn">Register</button></td>
@@ -124,10 +137,35 @@
 
 </div>
 
+<div id='blogMainPage_sub1' class="blogMainPage">
+
+ <table id="TableMain">
+  <tbody>
+    <tr>
+      <td>
+        Welcome to Blogger
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+</div>    
+
+
+
+
+
+
+
+</article>
+
 </body>
 
+
+
+
     <div class="footline">
-    <footer>Copyright Team8, All right reserved </footer>
+    <footer  >Copyright Team8, All right reserved </footer>
     <div>
 
 </html>

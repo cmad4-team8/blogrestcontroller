@@ -1,5 +1,5 @@
   /* Full-width input fields */
-input[type=text], input[type=password] {
+/*input[type=text], input[type=password] {
     height: 30px;
     width: 200px;
     margin: 8px 0;
@@ -8,7 +8,7 @@ input[type=text], input[type=password] {
     box-sizing: border-box;
 }
 
-/* Set a style for all buttons */
+/* Set a style for all buttons 
 button {
     background-color: cornflowerblue;
     color: white;
@@ -47,7 +47,7 @@ width: 90%;
 height: 2px;
 
 }
-/* Extra styles for the cancel button */
+/* Extra styles for the cancel button 
 .signupbtn_n {
     float: right;
     width: 100%;
@@ -55,12 +55,72 @@ height: 2px;
     margin-left: 100px;
 }
 
- #signupForm, #forgotpassForm, #loginForm,#LoginSuccess,#BlogerStat {
-	display: none;
-} 
 
 table#BlogerStat {
     font-family: arial, sans-serif;
     border-collapse: collapse;
     width: 100%;
+} */
+
+#signupForm, #forgotpassForm, #loginForm,#LoginSuccess,#blogMainPage_sub1,#blogStatPage {
+	display: none;
+} 
+
+div.container {
+    width: 100%;
+    height: 100%;
+    border: 1px solid gray;
+}
+
+header {
+    padding: 1em;
+    color: white;
+    /*background-color: black;*/
+    clear: left;
+    text-align: center;
+    background-color: #0BAAAF;
+
+}
+
+footer { 
+    padding: 1em;
+    background-color: #0BAAAF;
+    width: 100%;
+    bottom: 0;
+    position: fixed;
+    text-align: center;
+}
+
+nav {
+    float: right;
+    max-width: 200px;
+    margin: 10px;
+    padding: 1em;
+    background:#eee;
+    
+}
+
+
+nav ul {
+    list-style-type: none;
+    padding: 0px;
+    font-size: 30px;
+}
+   
+nav ul a {
+    text-decoration: none;
+}
+
+article {
+    margin-left: 170px;
+    border-left: 1px solid white;
+    border-style: 
+    padding: 1em;
+    overflow: hidden;
+}
+
+.blogMainPage {
+    font-size: 30px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    background-color: blanchedalmond;
 }

@@ -94,12 +94,25 @@ $(document).ready(function(){
                 alert("Processing Login");
                 var uname = $("#userid").val();
                 var passwd = $("#passwd").val();
-                $("#loginForm").hide()
-                $("#LoginSuccess").show();
+                $("#loginForm").hide();
+               
               $("#blogMainPage_sub1").hide();
+              var logindata = {
+                  "user" : uname,
+                  "passowrd" : passwd
+              };
+              $.ajax({
+                  url: 'rest/user/login',
+                  type : 'post',
+                  dataType: 'json',
+                  contentType: "application/json; charset=utf-8",
+                  success : function(data) {
+                      $("#LoginSuccess").show();
+                  },
+                  data : JSON.stringify(logindata)
 
-                validate_user(uname, passwd);
-                
+              });
+               /* validate_user(uname, passwd);*/
     });
 
     /* register user, val() not value */

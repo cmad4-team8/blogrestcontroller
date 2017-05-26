@@ -37,23 +37,12 @@ public class JPABloggerDAO implements BloggerDAO {
 	}
 
 	@Override
-	public void login(String user, String pwd) {
+	public Blogger rtrvProfile(String login_id) {
 		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void logout(String user) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public Blogger rtrvProfile(String user) {
-		// TODO Auto-generated method stub
+		System.out.println("Username to look for: " + login_id);
 		EntityManager em = factory.createEntityManager();
 		em.getTransaction().begin();
-		Blogger b = em.find(Blogger.class, user);
+		Blogger b = em.find(Blogger.class, login_id);
 		em.getTransaction().commit();
 		em.close();
 		return b;

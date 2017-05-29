@@ -1,126 +1,60 @@
-  /* Full-width input fields */
-/*input[type=text], input[type=password] {
-    height: 30px;
-    width: 200px;
-    margin: 8px 0;
-    display: inline-block;
-    border: 1px solid #ccc;
-    box-sizing: border-box;
-}
-
-/* Set a style for all buttons 
-button {
-    background-color: cornflowerblue;
-    color: white;
-    padding: 14px 20px;
-    margin: 8px 0px;
-    border:solid;
-    cursor: pointer;
-    width: 100%;
-    font-size: 25px;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
-}
-.mheadline {
-   background-color: #0BAAAF; 
-    background-color: cornflowerblue;
-   
-   width: 90%;
-   padding: 100px;
-}
-.headline {
-background-color: #0BAAAF;
-    background-color: cornflowerblue;
-
-color: greenyellow;
-padding: 14px 20px;
-padding: 100px;
-width: 90%;
 
 
+a, a:hover, a:active, a:visited, a:focus, a:click {
+    text-decoration:none;
 }
-.footline {
-background-color:lemonchiffon;
-color: blue;
-padding: 2px 2px;
-padding: 100px;
-width: 90%;
-height: 2px;
 
+#blogger-main {
+    display: none;
 }
-/* Extra styles for the cancel button 
-.signupbtn_n {
-    float: right;
-    width: 100%;
-    font-size: 14px;
-    margin-left: 100px;
+#register-blogger, #login-blogger,#new-post-blogger{
+    display: none;
+}
+
+#Login-success, #Login-failed,#welcome, #forgot-password, #user-id{
+    display: none;
+}
+
+#myNavbar {
+    display: none;
 }
 
 
-table#BlogerStat {
-    font-family: arial, sans-serif;
-    border-collapse: collapse;
-    width: 100%;
-} */
+.jumbotron {
+background-size: cover;
+/*background-color: #0BAAAF;*/
+background-color: lightblue;
+font-size: 40px;
+color: #fff;
+font-family: Georgia, 'Times New Roman', Times, serif;
 
-#signupForm, #forgotpassForm, #loginForm,#LoginSuccess,#blogMainPage_sub1,#blogStatPage {
-	display: none;
-} 
-
-div.container {
-    width: 100%;
-    height: 100%;
-    border: 1px solid gray;
+/*max-height: 200px;*/
 }
 
-header {
-    padding: 1em;
-    color: white;
-    /*background-color: black;*/
-    clear: left;
-    text-align: center;
-    background-color: #0BAAAF;
+.nav, .navbar {
+ /*background-color:#0BAAAF;*/
+ background-color: lightblue;
 
 }
 
 footer { 
     padding: 1em;
-    background-color: #0BAAAF;
+    background-color:lightblue;
     width: 100%;
-    bottom: 0;
-    position: fixed;
+    padding-top: 1px;
+    bottom: 0px;
+    position: relative;
     text-align: center;
+    font-size: 14px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+     color: white;
 }
 
-nav {
-    float: right;
-    max-width: 200px;
-    margin: 10px;
-    padding: 1em;
-    background:#eee;
-    
+body {
+  overflow: scroll;
+  position: relative;
 }
 
-
-nav ul {
-    list-style-type: none;
-    padding: 0px;
-    font-size: 30px;
-}
-   
-nav ul a {
-    text-decoration: none;
-}
-
-article {
-    margin-left: 170px;
-    border-left: 1px solid white;
-    border-style: 
-    padding: 1em;
-    overflow: hidden;
-}
-
-.blogMainPage {
-    font-size: 30px;
-    font-family: Georgia, 'Times New Roman', Times, serif;
-    background-color: blanchedalmond;
+table {
+    border: none;
 }

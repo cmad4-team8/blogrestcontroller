@@ -1,43 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <title>Team8 blogger</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <script type="text/javascript" src="jquery-3.2.1.js"> </script>
-        <link href="mystyle.css" rel="stylesheet">
-        <script src="team8.js"></script>
-
-    </head>
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="team8.js"></script>
+   <link href="mystyle.css" rel="stylesheet">
+</head>
 
 <body>
 
+<div class="jumbotron text-center" id='JMB'>
+    <a href="#" id='main-home'> <span class="glyphicon glyphicon-home"></span>TEAM8 BLOGGER</a>
 
-<header>
-<div  class="container" id='mainhead'>
-  <a href="#" id="MainLink"> <h1> TEAM8 Blogger Platform </h1></a> 
-  <table>
-     <td colspan="2" ><button id="signupBtnM">Create Your Own Blog</button></td>         
-	<td colspan="2" ><button id="signinBtnM">Sign in</button></td>
-   </table>
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+      <!--
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand" href="#">About</a>
+    </div> -->
+    
+             <div class="collapse navbar-collapse" id="myNavbar">
+                    <ul class="nav navbar-nav" >
+                        <li><a href="#" id='newblog-id'><span class="glyphicon glyphicon-pencil">NewBlog</a></li>
+                         <!-- class="active" --> 
+                        <li><a href="#" id='about-id'><span class="glyphicon glyphicon-tag"></span>About</a></li>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#" id='user-id'><span class="glyphicon glyphicon-user"></span>User<span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#">Change profile</a></li>
+                                    <li><a href="#">Change settings</a></li>
+                                    <li><a href="#">Logout</a></li>
+                                </ul>
+                        </li>
+        
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                         <li> <a href="#" id='register-id'><span class="glyphicon glyphicon-book"></span>Register</a></li> 
+                         <li><a href="#" id='login-id'><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                         <li><a href="#" id='help-id'><span class="glyphicon glyphicon-info-sign"></span>Help</a></li> 
+                        <!-- <li><a href="#" id='logout-id'><span class="glyphicon glyphicon-log-out"></span>Logout</a></li> -->
+                         
+                        
+                        <!-- <li> <a href="#" id='search-id'><span class="glyphicon glyphicon-search">Search</a> </li> -->
+                        <li>
+                            <input type="text" class="form-control" placeholder="Search" id='search-item'>
+                         <button type="button" class="btn btn-link" aria-label="Left Align" id='search-btn-id'> 
+                            <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                         </button>
+                        </li>
+                     </ul>
+                </div>
+         </div>  <!-- container -fluid -->
+    </nav>
+  <!-- navigation    -->
+</div> <!-- end of jumbotron -->
 
+<div class="container" id='blogger-main'>
+  <div class="row" id='row-id'>
+    <div class="col-sm-4">
+      <h3>blog 1</h3>
+      <p>this is the first blog</p>
+      <p>have a good day</p>
+    </div>
+  </div>
 </div>
-</header>
+ <!-- blogger-main end  --> 
 
-<nav id='Main_nav_right'>
-  <ul>
-    <li><a href="#" id="blogSearch" >Search</a></li>
-    <li><a href="#">Blog View</a></li>
-    <li><a href="#">About</a></li>
-  </ul>
-</nav>
-
-
-<article>
-<!-- login form -->
-<div id='loginForm'> 
+<div class="container" id='login-blogger'> 
 		<h1>Login </h1>
-		<table>
+		<table class="table table-striped">
 			<tr>
 				<td>User ID</td>
 				<td> <input type='text' id='userid' required/> </td>
@@ -48,125 +88,152 @@
 			</tr>
 		    <tr>
 			
-           <td colspan="2" align="right"><button type="submit" id="signinBtn">Sign in</button> </td>
+           <td colspan="1" align="left"><button type="submit" class="btn btn-default" id="sign-in-btn">Sign in</button> </td>
 				<!-- <td colspan="2" align="right"><button id="signupBtn">Sign Up</button></td> -->
-            <td colspan="2" align="right"><button id="forgotpBtn">Forgot Password</button></td>
-			</tr>
-		</table>
-        
+            <td colspan="1" align="left"><button type="submit" class="btn btn-default" id="forgot-pass-btn">Forgot Password</button></td>
+            </tr>
+		</table>  
+
 </div>
-<!-- end of login form -->
 
-<!-- ++++++ sign up form ++++++ -->
-<div id='signupForm'>
+
+<div class="container" id='register-blogger'>
      <h1> Registration details </h1>
-    <table> 
-    <tr>   
-        <td >First name</td>
-        <td ><input type="text" id="ufname"  required> </td>
-    </tr>
-    <tr>
-        <td >Last Name</td>
-         <td ><input type="text" id="ulname"  required> </td>
-    </tr>
-    <tr>
-        <td >Choose User ID</td>
-         <td ><input type="text" id="ucuid"  required> </td>
-    </tr>
-    <tr>
-        <td >Create Password</td>
-        <td ><input type="password" id="ucpass"  required> </td>
-    </tr>
-    <tr>
-        <td >Confirm Password</td>
-        <td ><input type="password" id="ucfpass"  required> </td>
-        <td >Hint</td>
-        <td style="width:70%"><input type="text" id="uhint"  required> </td>
-     </tr>
+        <table  class="table table-hover"> 
+             <tr>   
+                    <td >First name</td>
+                    <td ><input type="text" id="ufname"  required> </td>
+            </tr>
+            <tr>
+                    <td >Last Name</td>
+                    <td ><input type="text" id="ulname"  required> </td>
+            </tr>
+            <tr>
+                     <td >Choose User ID</td>
+                     <td ><input type="text" id="ucuid"  required> </td>
+            </tr>
+            <tr>
+                     <td >Create Password</td>
+                     <td ><input type="password" id="ucpass"  required> </td>
+            </tr>
+            <tr>
+                    <td >Confirm Password</td>
+                    <td ><input type="password" id="ucfpass"  required> </td>
+                    <td >Hint</td>
+                    <td style="width:50%"><input type="text" id="uhint"  required> </td>
+            </tr>
+            <tr>
+                    <td >Date of Birth</td>
+                    <td ><input type="Date" id="udob"  required> </td>
+            </tr>
+            <tr>
+                    <td >Email </td>
+                    <td ><input type="text" id="uemail"  required> </td>
+            </tr>
 
-     <tr>
-        <td >Date of Birth</td>
-        <td ><input type="Date" id="udob"  required> </td>
-     </tr>
-     <tr>
-        <td >Email </td>
-        <td ><input type="text" id="uemail"  required> </td>
-     </tr>
-     <tr>
-     <td >Agree to Terms and conditions</td>
-    <td ><input type="checkbox" name="consent" value="set" id="uagree" required></td>
-    </tr>
-    <tr>
-		<td colspan="2" align="right"><button id="registerBtn">Register</button></td>
-        
-	</tr>
-</table>
+            <tr>
+                    <td  >Agree to Terms and conditions</td>
+                    <td ><input type="checkbox" name="consent" value="set" id="uagree" required></td>
+                    <td colspan="1" align="right"> <button id="registerBtn" class="btn btn-primary">Register</button>
+                    
+                    </td>
+            </tr>
+            <tr> 
+	          <td> </td>
+	        </tr>
+            <tr> 
+	          <td>help </td>
+	        </tr>
 
-</div> 
-<!-- end of sign up form -->
-    
-<div id='forgotpassForm'>
+    </table>
+
+</div> <!-- end of register-blogger -->
+
+<div class="container" id='forgot-password'>
      <h1> Forgot passowrd </h1>
-     <table>
+     <table class="table table-hover">
         <tr>
             <td >Registered Email </td>
             <td ><input type="text" id="cpass"  required> </td>
         </tr> 
         <tr>
-		    <td colspan="2" align="right"><button id="ForgotpassBtn">Submit</button></td>
+		    <td colspan="1" align="right"><button id="ForgotpassBtn">Submit</button></td>
 	    </tr>
      </table>
 </div>   
 <!-- end of the forgotpassForm -->
 
-<div id='LoginSuccess'>
+
+<div class="container" id='welcome'>
+    <h1> welcome to the blogger platform </h1>
+</div>
+<!-- Main Page  +++++++++   -->
+<div class="container" id='main-page-blogger'>
+
+ <table id="table-main-page">
+  <tbody>
+    <tr>
+      <td>
+        <blockquote>
+         <p> sample main page looks like this</p>
+         <footer>This is the footer</footer>
+         </blockquote>
+     
+      </td>
+    </tr>
+  </tbody>
+</table>
+</div>  
+<!-- End of MainPage  -->  
+
+
+<div id='Login-success'>
     <h1> Successfully Validated user <h1>
 </div>
 
 <!-- end of login success -->
 
-<div  id='blogStatPage'>
-    <table id='BlogerStat'>
-          <td>Healine</td>
-          <td>User</td>
-          <td>Publish Date</td>
-          <td>Action </td>
-     </table>
 
+<!-- end of login failure -->
 
+<div id='Login-failed'>
+    <h1> Failed to Login,  invalid user name and password <h1>
 </div>
 
-<div id='blogMainPage_sub1' class="blogMainPage">
+<!-- end of login failure -->
 
- <table id="TableMain">
-  <tbody>
-    <tr>
-      <td>
-        Welcome to Blogger
-      </td>
-    </tr>
-  </tbody>
-</table>
+<div class="container" id='new-post-blogger'>
+        <h1> New Blog </h1>
+            <table class="table table-hover"> 
+                 <tr>   
+                    <td ><b>Blog Title</b></td>
+                    <td ><input type="text" id="BlogTitle"  required> </td>
+                </tr>
 
-</div>    
+  <tr>
+  <td> <b>Description </b></td> 
+  <td> </td>
+  </tr>
+
+  <tr>
+      <td> </td>
+  <td> <textarea   class="form-control" id='TextArea' cols="60" rows="15" maxlength="2048">This is a multi-line box</textarea> </td>
+  </tr>
+  <tr>
+    <td> <button class="btn btn-primary"> submit</button> </td>
+ </tr>
+ </table>
+
+</div>  <!--   end of post -->
 
 
-
-
-
-
-
-</article>
 
 </body>
 
 
 
-
-    <div class="footline">
+<div class="footline">
     <footer  >Copyright Team8, All right reserved </footer>
-    <div>
+<div>
 
 </html>
-
-

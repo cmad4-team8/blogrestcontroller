@@ -49,6 +49,19 @@ public class JPABloggerDAO implements BloggerDAO {
 		
 		//return null;
 	}
+
+	@Override
+	public void update(Blogger user) {
+		// TODO Auto-generated method stub
+		EntityManager em = factory.createEntityManager();
+        em.getTransaction().begin();
+        Blogger b = em.find(Blogger.class, user.getLogin_id());
+        b.setEmail(user.getEmail());
+        b.setF_name(user.getF_name());
+        b.setL_name(user.getL_name());
+        em.getTransaction().commit();
+        em.close();
+	}
 	
 	
 

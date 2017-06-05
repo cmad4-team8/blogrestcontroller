@@ -36,4 +36,10 @@ public class Usercontroller implements Blogger_Interface {
 		return b;
 	}
 
+	@Override
+	public void update(Blogger user) throws BloggerException {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

@@ -63,12 +63,17 @@ $(document).ready(function(){
     $("#login-id").click(function(){
         $( "div[class='container']" ).hide();
         $("#login-blogger").show();
+     });
+   
+    $("#sign-in-btn").click(function(){
+
         var uname = $("#userid").val();
         var passwd = $("#passwd").val();
         $("#loginForm").hide();     
         $("#blogMainPage_sub1").hide();
         $("#LoginFailed").hide();
         $("#LoginSuccess").hide();
+        alert(uname + passwd);
         var logindata = {
                         "user" : uname,
                         "passowrd" : passwd

@@ -23,6 +23,7 @@ import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.core.Response.Status;
 
 import com.cmad4.team8.blogrestcontroller.authentication.*;
+import com.cmad4.team8.blogrestcontroller.exceptions.BloggerException;
 import com.cmad4.team8.blogrestcontroller.user.api.Blogger;
 import com.cmad4.team8.blogrestcontroller.user.api.Blogger_Interface;
 import com.cmad4.team8.blogrestcontroller.user.service.Usercontroller;
@@ -97,9 +98,16 @@ public class BlogUserController {
     @Path("/prof_update")
     @JWTTokenNeeded
     public Response update(Blogger b) {
-        
+        try {
 		bi.update(b);
         return Response.ok().entity(b).build();
+        } catch	(UserNotFoundException e) {
+        	System.out.print(b.getLogin_id() + " :User not found !!!");
+        	return Response.status(UNAUTHORIZED).build();
+        } catch (BloggerException e) {
+        	System.out.println("General Exception for user " + b.getLogin_id());
+			return Response.status(UNAUTHORIZED).build();
+        }
     }
 	
 	private String issueToken(String login) {

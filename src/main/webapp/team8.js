@@ -75,8 +75,8 @@ $(document).ready(function(){
         $("#LoginSuccess").hide();
         alert(uname + passwd);
         var logindata = {
-                        "user" : uname,
-                        "passowrd" : passwd
+                        "login_id" : uname,
+                        "pwd" : passwd
                         };
         $.ajax({
                   url: 'rest/user/login',

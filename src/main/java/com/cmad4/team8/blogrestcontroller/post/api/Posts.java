@@ -9,9 +9,17 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 
-@Entity
+
+
+@Entity(name = "Posts")
+@NamedQueries({ 
+	@NamedQuery(name = "Posts.getallposts", query = "SELECT b FROM Posts b"),
+    @NamedQuery(name = "Posts.del_blog_comments", query = "DELETE FROM comments c WHERE c.p_id = :p_id"),
+    @NamedQuery(name = "Posts.find_blogs_by_user", query = "SELECT b FROM Posts b WHERE b.login_id = :login_id") })
 public class Posts {
 
 	@Id

@@ -6,5 +6,6 @@ public interface Blogger_Interface {
 	public void signup(Blogger user) throws InvalidUserException, DuplicateUserException, BloggerException;
 	public Blogger rtrvProfile(String user) throws UserNotFoundException, BloggerException;
 	public void update(Blogger user) throws UserNotFoundException, BloggerException;
+	public void remove(String user) throws UserNotFoundException, BloggerException;
 
 }

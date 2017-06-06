@@ -1,20 +1,35 @@
 package com.cmad4.team8.blogrestcontroller.user.rest;
 
+import static javax.ws.rs.core.HttpHeaders.AUTHORIZATION;
 import static javax.ws.rs.core.Response.Status.UNAUTHORIZED;
+
+import java.security.Key;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Date;
+import java.util.logging.Logger;
 
 import javax.transaction.Transactional;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.core.Response.Status;
 
+import com.cmad4.team8.blogrestcontroller.authentication.*;
 import com.cmad4.team8.blogrestcontroller.user.api.Blogger;
 import com.cmad4.team8.blogrestcontroller.user.api.Blogger_Interface;
 import com.cmad4.team8.blogrestcontroller.user.service.Usercontroller;
+
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+
 import com.cmad4.team8.blogrestcontroller.user.api.IncorrectLoginException;
 import com.cmad4.team8.blogrestcontroller.user.api.UserNotFoundException;
 import com.cmad4.team8.blogrestcontroller.user.api.UserNotFoundExcption;
@@ -25,6 +40,13 @@ import com.cmad4.team8.blogrestcontroller.user.api.UserNotFoundExcption;
 @Transactional
 public class BlogUserController {
 	private static Blogger_Interface bi = new Usercontroller();
+	
+	@Context
+    private UriInfo uriInfo;
+
+    // @Inject
+    private KeyGenerator keyGenerator = new SimpleKeyGenerator();
+
 
 	public BlogUserController() {
 		// TODO Auto-generated constructor stub
@@ -38,11 +60,14 @@ public class BlogUserController {
 		bi.signup(b);
 		return Response.ok().build();
 	}
+	
 	@POST
 	@Path("/login")
-	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-	public Response signin(@FormParam("login") String login, @FormParam("password") String password)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response signin(UserCredentials user)
 	{
+		String login = user.getLogin_id();
+		String password = user.getPwd();
 		try {
 			System.out.println("user_name: " + login + "   pwd: " + password); 
 			if (!validateuser(login,password))
@@ -50,10 +75,10 @@ public class BlogUserController {
 				return Response.status(Status.FORBIDDEN.getStatusCode())
           .entity("Access Denied for this functionality!!!").build();
 			}
-			//String token = issueToken(login);
-			//return Response.ok().header(AUTHORIZATION, "Bearer " + token).build();
+			String token = issueToken(login);
+			return Response.ok().header(AUTHORIZATION, "Bearer " + token).build();
 			//System.out.println("Token issued: " + token);
-			return Response.ok().build();
+			//return Response.ok().build();
 		} catch (UserNotFoundExcption e) {
 			System.out.println("User Not found Exception for user " + login);
 			return Response.status(UNAUTHORIZED).build();
@@ -67,7 +92,16 @@ public class BlogUserController {
 		}
 		
 	}
-/*
+
+	@PUT
+    @Path("/prof_update")
+    @JWTTokenNeeded
+    public Response update(Blogger b) {
+        
+		bi.update(b);
+        return Response.ok().entity(b).build();
+    }
+	
 	private String issueToken(String login) {
         Key key = keyGenerator.generateKey();
         String jwtToken = Jwts.builder()
@@ -84,7 +118,7 @@ public class BlogUserController {
 		// TODO Auto-generated method stub
 		return Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
 	}
-*/
+
 	private boolean validateuser(String username, String pwd) {
 		// TODO Auto-generated method stub
 		

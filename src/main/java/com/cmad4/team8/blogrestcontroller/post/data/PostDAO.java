@@ -7,7 +7,9 @@ import com.cmad4.team8.blogrestcontroller.post.api.Posts;
 
 
 public interface PostDAO {
-	public void saveandpublish(Posts blog);
+	public Posts saveandpublish(Posts blog);
+	
+	public void createnewpost (Posts blog);
 
     public Posts read(int p_id);
 

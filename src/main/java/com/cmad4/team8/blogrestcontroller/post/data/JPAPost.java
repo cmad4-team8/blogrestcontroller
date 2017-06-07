@@ -18,13 +18,20 @@ public class JPAPost implements PostDAO {
 	}
 
 	@Override
-	public void saveandpublish(Posts blog) {
+	public Posts saveandpublish(Posts blog) {
 		// TODO Auto-generated method stub
 		EntityManager em = factory.createEntityManager();
-		em.getTransaction().begin();
-		em.persist(blog);
-		em.getTransaction().commit();
-		em.close();
+        em.getTransaction().begin();
+        Posts p = em.find(Posts.class, blog.getPid());
+        p.setSaved_content(blog.getSaved_content());
+        if (p.getStatus() != 1) {
+        	p.setStatus(blog.getStatus());
+        }
+        p.setPublished_content(blog.getPublished_content());
+      
+        em.getTransaction().commit();
+        em.close();
+        return p;
 	}
 
 	@Override
@@ -72,6 +79,16 @@ public class JPAPost implements PostDAO {
         em.getTransaction().commit();
         em.close();
 
+	}
+
+	@Override
+	public void createnewpost(Posts blog) {
+		// TODO Auto-generated method stub
+		EntityManager em = factory.createEntityManager();
+		em.getTransaction().begin();
+		em.persist(blog);
+		em.getTransaction().commit();
+		em.close();
 	}
 
 }

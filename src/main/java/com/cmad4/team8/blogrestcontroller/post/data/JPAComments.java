@@ -43,7 +43,7 @@ public class JPAComments implements CommentsDAO {
 		// TODO Auto-generated method stub
 		EntityManager em = factory.createEntityManager();
         em.getTransaction().begin();
-        List<comments> cmts = em.createQuery("comments.getallcommentsforpost",comments.class).getResultList();
+        List<comments> cmts = em.createNamedQuery("comments.getallcommentsforpost",comments.class).setParameter("p_id",p_id).getResultList();
         em.getTransaction().commit();
         em.close();
         return cmts;
@@ -55,7 +55,7 @@ public class JPAComments implements CommentsDAO {
 		// TODO Auto-generated method stub
 		EntityManager em = factory.createEntityManager();
         em.getTransaction().begin();
-        List<comments> cmts = em.createQuery("comments.getallcommentsbyuser",comments.class).getResultList();
+        List<comments> cmts = em.createNamedQuery("comments.getallcommentsbyuser",comments.class).setParameter("login_id", login_id).getResultList();
         em.getTransaction().commit();
         em.close();
         return cmts;

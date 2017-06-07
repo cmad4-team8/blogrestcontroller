@@ -15,7 +15,7 @@ public interface PostDAO {
 
     public List<Posts> readAllPosts(int pageNum);
 
-    public List<Posts> readByUserId(String userId, int pageNum);
+    public List<Posts> readByUserId(String login_id, int pageNum);
 
     public void deletePost(int p_id);
 

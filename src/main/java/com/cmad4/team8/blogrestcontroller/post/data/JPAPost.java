@@ -50,18 +50,18 @@ public class JPAPost implements PostDAO {
 		// TODO Auto-generated method stub
 		EntityManager em = factory.createEntityManager();
         em.getTransaction().begin();
-        List<Posts> blogs = em.createQuery("Posts.getallposts",Posts.class).getResultList();
+        List<Posts> blogs = em.createNamedQuery("Posts.getallposts",Posts.class).getResultList();
         em.getTransaction().commit();
         em.close();
         return blogs;
 	}
 
 	@Override
-	public List<Posts> readByUserId(String userId, int pageNum) {
+	public List<Posts> readByUserId(String login_id, int pageNum) {
 		// TODO Auto-generated method stub
 		EntityManager em = factory.createEntityManager();
         em.getTransaction().begin();
-        List<Posts> blogs = em.createQuery("Posts.find_blogs_by_user",Posts.class).getResultList();
+        List<Posts> blogs = em.createNamedQuery("Posts.find_blogs_by_user",Posts.class).setParameter("login_id", login_id).getResultList();
         em.getTransaction().commit();
         em.close();
         return blogs;

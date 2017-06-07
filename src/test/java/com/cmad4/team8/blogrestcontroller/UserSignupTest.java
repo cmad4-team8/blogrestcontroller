@@ -3,6 +3,8 @@ package com.cmad4.team8.blogrestcontroller;
 import static org.junit.Assert.*;
 
 import java.sql.Date;
+import java.util.List;
+
 import org.junit.runners.MethodSorters;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
@@ -11,7 +13,12 @@ import com.cmad4.team8.blogrestcontroller.user.api.Blogger_Interface;
 import com.cmad4.team8.blogrestcontroller.user.api.DuplicateUserException;
 import com.cmad4.team8.blogrestcontroller.user.api.UserNotFoundException;
 import com.cmad4.team8.blogrestcontroller.user.service.Usercontroller;
+import com.google.gson.Gson;
 import com.cmad4.team8.blogrestcontroller.exceptions.BloggerException;
+import com.cmad4.team8.blogrestcontroller.post.api.InvalidPostException;
+import com.cmad4.team8.blogrestcontroller.post.api.Posts;
+import com.cmad4.team8.blogrestcontroller.post.api.Posts_interface;
+import com.cmad4.team8.blogrestcontroller.post.service.PostController;
 
 //@RunWith(HttpJUnitRunner.class)
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
@@ -26,8 +33,11 @@ public class UserSignupTest {
 	@SuppressWarnings("deprecation")
 	Date dob = new Date(1999, 6, 17);
 	
+	
 	String InvalidUser = "user1";
 	Blogger_Interface bi = new Usercontroller();
+	Posts_interface pi = new PostController();
+	
 	
 	
 	@Test
@@ -88,7 +98,73 @@ public class UserSignupTest {
 	}
 	
 	@Test
-	public void _4_RemoveUser() {
+	public void _4_PostCreateandUpdate() {
+		
+		try {
+			Posts Test_Post = new Posts();
+			Test_Post.setLogin_id(user);
+			Test_Post.setPostDate(dob);
+			Test_Post.setStatus(0);
+			Test_Post.setTitle("Junit Test Blog Creation");
+			Test_Post.setSaved_content("This is the test content of the blog from Junit and will be deleted at the end of the JUNIT test cases");
+			pi.saveandpublish(Test_Post).getPid();
+			System.out.println("post id after creating posts is " + Test_Post.getPid());
+			
+			//Now test the updatepart
+			Test_Post.setStatus(1);
+			Test_Post.setSaved_content("This is the test content of the Published blog from Junit and will be deleted at the end of the JUNIT test cases");
+			Test_Post.setPublished_content(Test_Post.getSaved_content());
+			//assert ("post id befor posting to post interface is " + Test_Post.getPid()) != null;
+			System.out.println("post id befor posting to post interface is " + Test_Post.getPid());
+			pi.saveandpublish(Test_Post);
+			
+		} catch (InvalidPostException e) {
+			fail("Error Creating posts");
+		} catch (Exception e) {
+			fail("Exception while creating post is not expected");
+		}
+	}
+	
+	@Test
+	public void _5_PostPublish() {
+		try {
+			Posts Test_Post = new Posts();
+			Test_Post.setLogin_id(user);
+			Test_Post.setPostDate(dob);
+			Test_Post.setStatus(1);
+			Test_Post.setTitle("Junit Test 2nd Blog Creation");
+			Test_Post.setSaved_content("This 2nd blog created for JUNIT testing and is mainly used to verify the retrieval of multiple posts");
+			Test_Post.setPublished_content("This 2nd blog created for JUNIT testing and is mainly used to verify the retrieval of multiple posts");
+			pi.saveandpublish(Test_Post).getPid();
+			System.out.println("post id after creating posts is " + Test_Post.getPid());
+		} catch (Exception e) {
+			fail("Exception while Updating post is not expected");
+		}
+	}
+	
+	@Test
+	public void _6_PostRetrieveall() {
+		try {
+			List<Posts> post_list = pi.readByUserId(user, 1);
+			if (post_list == null) {
+				fail("The comments we added is not retrieved");
+			} else {
+			
+				Gson gson = new Gson();
+				// convert your list to json
+				String rtvBlogList = gson.toJson(post_list);
+				// print your generated json
+				System.out.println("rtrieved blog list: ");
+				System.out.println(rtvBlogList);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			fail("Exception while retrieving the post");
+		}
+	}
+	
+	@Test
+	public void _9_RemoveUser() {
 		try {
 			bi.remove(user);
 		}catch (UserNotFoundException e) {
@@ -100,5 +176,7 @@ public class UserSignupTest {
 			fail("Not yet implemented");
 		}
 	}
+	
+
 
 }

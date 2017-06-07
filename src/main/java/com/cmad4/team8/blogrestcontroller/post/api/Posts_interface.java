@@ -8,7 +8,7 @@ import com.cmad4.team8.blogrestcontroller.exceptions.PostsException;
 
 public interface Posts_interface {
 
-    public void saveandpublish(Posts updatedBlog) throws InvalidPostException, PostsException;
+    public Posts saveandpublish(Posts updatedBlog) throws InvalidPostException, PostsException;
 
     public void deletePost(int id) throws PostNotFoundException, PostsException;
 

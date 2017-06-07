@@ -13,6 +13,10 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
+
 
 
 @Entity(name = "Posts")
@@ -29,7 +33,11 @@ public class Posts {
 	private String login_id;
 	private Date postDate;
 	private int status;
+	//@JsonProperty(access = Access.WRITE_ONLY)
+	@JsonIgnore
 	private String saved_content;
+	//@JsonProperty(access = Access.WRITE_ONLY)
+	@JsonIgnore
 	private String published_content;
 	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 	@JoinColumn(name = "p_id")
@@ -91,18 +99,22 @@ public class Posts {
 		this.status = status;
 	}
 
+	@JsonIgnore
 	public String getSaved_content() {
 		return saved_content;
 	}
 
+	@JsonProperty
 	public void setSaved_content(String saved_content) {
 		this.saved_content = saved_content;
 	}
 
+	@JsonIgnore
 	public String getPublished_content() {
 		return published_content;
 	}
 
+	@JsonProperty
 	public void setPublished_content(String published_content) {
 		this.published_content = published_content;
 	}

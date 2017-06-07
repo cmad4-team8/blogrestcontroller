@@ -20,21 +20,25 @@ public class PostController implements Posts_interface {
 	}
 
 	@Override
-	public void saveandpublish(Posts updatedBlog) throws InvalidPostException, PostsException {
+	public Posts saveandpublish(Posts updatedBlog) throws InvalidPostException, PostsException {
 		// TODO Auto-generated method stub
 		if (updatedBlog == null) {
 			throw new InvalidPostException();
 		}
+		System.out.println("PostID before create/update post is " + updatedBlog.getPid());
 		if (dao.read(updatedBlog.getPid()) != null) {
 			//TODO: call update function of DAO
 			if (dao.saveandpublish(updatedBlog) == null) {
 				throw new PostsException();
 			}
+			System.out.println("PostID after Updating new post is " + updatedBlog.getPid());
 		} else {
 			//TODO: call create function of DAO
 			dao.createnewpost(updatedBlog);
+			System.out.println("PostID after creating new post is " + updatedBlog.getPid());
 		}
 		
+		return updatedBlog;
 	}
 
 	@Override
@@ -70,6 +74,7 @@ public class PostController implements Posts_interface {
 	@Override
 	public List<Posts> readByUserId(String userId, int pageNum) throws PostNotFoundException, PostsException {
 		// TODO Auto-generated method stub
+		System.out.println("Username to lookfor " + userId);
 		List<Posts> blog = dao.readByUserId(userId, pageNum);
 		if (blog == null) {
 			throw new PostNotFoundException();

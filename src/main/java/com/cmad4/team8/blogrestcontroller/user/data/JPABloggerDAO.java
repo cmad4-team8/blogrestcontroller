@@ -4,6 +4,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
+
 import com.cmad4.team8.blogrestcontroller.user.api.Blogger;
 
 public class JPABloggerDAO implements BloggerDAO {
@@ -61,6 +62,20 @@ public class JPABloggerDAO implements BloggerDAO {
         b.setL_name(user.getL_name());
         em.getTransaction().commit();
         em.close();
+	}
+
+	@Override
+	public void remove(String login_id) {
+		// TODO Auto-generated method stub
+		EntityManager em = factory.createEntityManager();
+        em.getTransaction().begin();
+        Blogger b = em.find(Blogger.class, login_id);
+        em.remove(b);
+        //TODO: Delete all the blogs associated with the Blogger 
+        //TODO: Delete all the comments associated with the Blogger
+        em.getTransaction().commit();
+        em.close();
+		
 	}
 	
 	

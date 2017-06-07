@@ -37,8 +37,21 @@ public class Usercontroller implements Blogger_Interface {
 	}
 
 	@Override
-	public void update(Blogger user) throws BloggerException {
+	public void update(Blogger user) throws UserNotFoundException, BloggerException {
 		// TODO Auto-generated method stub
+		if (dao.rtrvProfile(user.getLogin_id()) == null) {
+			throw new UserNotFoundException();
+		}
+		dao.update(user);
+	}
+
+	@Override
+	public void remove(String user) throws UserNotFoundException, BloggerException {
+		// TODO Auto-generated method stub
+		if (dao.rtrvProfile(user) == null) {
+			throw new UserNotFoundException();
+		}
+		dao.remove(user);
 		
 	}
 

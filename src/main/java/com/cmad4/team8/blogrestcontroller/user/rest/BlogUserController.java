@@ -2,19 +2,20 @@ package com.cmad4.team8.blogrestcontroller.user.rest;
 
 import static javax.ws.rs.core.HttpHeaders.AUTHORIZATION;
 import static javax.ws.rs.core.Response.Status.UNAUTHORIZED;
+import static javax.ws.rs.core.Response.Status.*;
 
 import java.security.Key;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
-import java.util.logging.Logger;
-
 import javax.transaction.Transactional;
 import javax.ws.rs.Consumes;
-import javax.ws.rs.FormParam;
+import javax.ws.rs.DELETE;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
@@ -23,6 +24,7 @@ import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.core.Response.Status;
 
 import com.cmad4.team8.blogrestcontroller.authentication.*;
+import com.cmad4.team8.blogrestcontroller.exceptions.BloggerException;
 import com.cmad4.team8.blogrestcontroller.user.api.Blogger;
 import com.cmad4.team8.blogrestcontroller.user.api.Blogger_Interface;
 import com.cmad4.team8.blogrestcontroller.user.service.Usercontroller;
@@ -97,10 +99,52 @@ public class BlogUserController {
     @Path("/prof_update")
     @JWTTokenNeeded
     public Response update(Blogger b) {
-        
+        try {
 		bi.update(b);
         return Response.ok().entity(b).build();
+        } catch	(UserNotFoundException e) {
+        	System.out.print(b.getLogin_id() + " :User not found !!!");
+        	return Response.status(NOT_FOUND).build();
+        } catch (BloggerException e) {
+        	System.out.println("General Exception for user " + b.getLogin_id());
+			return Response.status(UNAUTHORIZED).build();
+        }
     }
+	
+	@GET
+	@Path("/{login_id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	@JWTTokenNeeded
+	public Response rtrv_profile(@PathParam("login_id")String login_id) {
+		try {
+			Blogger b = bi.rtrvProfile(login_id);
+			return Response.ok().entity(b).build();
+		} catch (UserNotFoundException e) {
+			System.out.print(login_id + " :User not found !!!");
+        	return Response.status(Status.BAD_REQUEST).build();
+		} catch (BloggerException e) {
+			System.out.print(login_id + " :Generic Blogger Exception !!!");
+        	return Response.status(INTERNAL_SERVER_ERROR).build();
+		}
+	}
+	
+	@DELETE
+	@Path("/{login_id}")
+	@JWTTokenNeeded
+	public Response del_blogger (@PathParam("login_id")String login_id) {
+		try {
+			bi.remove(login_id);
+		    return Response.ok().build();
+		} catch (UserNotFoundException e) {
+			// TODO: handle exception
+			System.out.print(login_id + " :User not found !!!");
+        	return Response.status(BAD_REQUEST).build();
+		} catch (BloggerException e) {
+			// TODO: handle exception
+			System.out.print(login_id + " :Generic Blogger Exception !!!");
+        	return Response.status(INTERNAL_SERVER_ERROR).build();
+		}
+	}
 	
 	private String issueToken(String login) {
         Key key = keyGenerator.generateKey();

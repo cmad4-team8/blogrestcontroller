@@ -6,5 +6,6 @@ public interface BloggerDAO {
 	public void signup(Blogger user);
 	public Blogger rtrvProfile(String login_id);
 	public void update(Blogger user);
+	public void remove(String login_id);
 
 }

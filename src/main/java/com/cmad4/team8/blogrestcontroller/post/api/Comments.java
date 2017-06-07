@@ -3,8 +3,13 @@ package com.cmad4.team8.blogrestcontroller.post.api;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 @Entity
+@NamedQueries({ 
+	@NamedQuery(name = "comments.getallcommentsforpost", query = "SELECT c FROM comments c WHERE c.p_id = :p_id"),
+    @NamedQuery(name = "comments.getallcommentsbyuser", query = "SELECT b FROM comments b WHERE b.login_id = :login_id") })
 public class comments {
 	@Id
 	@GeneratedValue

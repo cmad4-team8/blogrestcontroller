@@ -2,6 +2,7 @@ package com.cmad4.team8.blogrestcontroller.post.api;
 
 import com.cmad4.team8.blogrestcontroller.exceptions.PostsException;
 
+@SuppressWarnings("serial")
 public class InvalidPostException extends PostsException {
 
 	public InvalidPostException() {

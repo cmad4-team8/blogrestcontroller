@@ -1,5 +1,6 @@
 package com.cmad4.team8.blogrestcontroller.exceptions;
 
+@SuppressWarnings("serial")
 public class PostsException extends Exception {
 
 	public PostsException() {

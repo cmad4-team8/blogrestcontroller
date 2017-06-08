@@ -4,8 +4,10 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -41,18 +43,18 @@ public class BlogPostController {
 	@JWTTokenNeeded
 	public Response create(Posts p) throws InvalidPostException, PostsException
 	{
-		pi.saveandpublish(p);
-		return Response.ok().build();
+		Posts q = pi.saveandpublish(p);
+		return Response.ok().entity(q).build();
 	}
 	
-	@POST
+	@PUT
 	@Path("/update")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@JWTTokenNeeded
 	public Response saveandpublish(Posts p) throws InvalidPostException, PostsException
 	{
-		pi.saveandpublish(p);
-		return Response.ok().build();
+		Posts q = pi.saveandpublish(p);
+		return Response.ok().entity(q).build();
 	}
 	
 	@GET
@@ -82,6 +84,14 @@ public class BlogPostController {
     	
     	return Response.ok().entity(postentities).build();
     	
+    }
+    
+    @DELETE
+    @Path("/{postid}")
+    public Response removePost(@PathParam("postid")int postid) throws PostNotFoundException, PostsException
+    {
+    	pi.deletePost(postid);
+    	return Response.ok().build();
     }
 	
 

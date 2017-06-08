@@ -10,5 +10,6 @@ public interface Comments_Interface {
 	public comments read(int c_id) throws CommentNotFoundException, CommentGeneralException;
 	public List<comments> readallbypost(int p_id, int pagenum) throws CommentNotFoundException, CommentGeneralException;
 	public List<comments> readallbyuser(String login_id, int pagenum) throws CommentNotFoundException, CommentGeneralException;
+	public void removeCmt(int c_id) throws CommentNotFoundException, CommentGeneralException;
 
 }

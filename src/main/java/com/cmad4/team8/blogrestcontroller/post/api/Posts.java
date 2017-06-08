@@ -1,7 +1,7 @@
 package com.cmad4.team8.blogrestcontroller.post.api;
 
 import java.util.Date;
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -15,7 +15,6 @@ import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
 
 
@@ -41,7 +40,7 @@ public class Posts {
 	private String published_content;
 	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 	@JoinColumn(name = "p_id")
-	private List<comments> cmts;
+	private Set<comments> cmts;
 	
 	public Posts() {
 		// TODO Auto-generated constructor stub
@@ -119,11 +118,11 @@ public class Posts {
 		this.published_content = published_content;
 	}
 
-	public List<comments> getCmts() {
+	public Set<comments> getCmts() {
 		return cmts;
 	}
 
-	public void setCmts(List<comments> cmts) {
+	public void setCmts(Set<comments> cmts) {
 		this.cmts = cmts;
 	}
 

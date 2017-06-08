@@ -60,4 +60,15 @@ public class CommentsController implements Comments_Interface {
 		return c_list;
 	}
 
+	@Override
+	public void removeCmt(int c_id) throws CommentNotFoundException, CommentGeneralException {
+		// TODO Auto-generated method stub
+		comments c = dao.read(c_id);
+		if (c == null) {
+			throw new CommentNotFoundException();
+		}
+		dao.delete(c_id);
+		
+	}
+
 }

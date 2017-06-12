@@ -1,17 +1,8 @@
 package com.cmad4.team8.blogrestcontroller.user.api;
 
 import java.util.Date;
-import java.util.Set;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-
-import com.cmad4.team8.blogrestcontroller.post.api.Posts;
-import com.cmad4.team8.blogrestcontroller.post.api.comments;
+import org.mongodb.morphia.annotations.Entity;
+import org.mongodb.morphia.annotations.Id;
 
 @Entity
 public class Blogger {
@@ -23,12 +14,6 @@ public class Blogger {
 	private String l_name;
 	private String email;
 	private Date dob;
-	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
-	@JoinColumn(name = "login_id")
-	private Set<Posts> blogs;
-	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
-	@JoinColumn(name = "login_id")
-	private Set<comments> cmts;
 
 	public String getLogin_id() {
 		return login_id;
@@ -86,8 +71,7 @@ public class Blogger {
 		this.dob = dob;
 	}
 
-	public Blogger(String login_id, String pwd, String hint, String f_name, String l_name, String email, Date dob,
-			Set<Posts> blogs) {
+	public Blogger(String login_id, String pwd, String hint, String f_name, String l_name, String email, Date dob) {
 		super();
 		this.login_id = login_id;
 		this.pwd = pwd;
@@ -96,27 +80,12 @@ public class Blogger {
 		this.l_name = l_name;
 		this.email = email;
 		this.dob = dob;
-		this.setBlogs(blogs);
+		
 	}
 
 	public Blogger() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Set<Posts> getBlogs() {
-		return blogs;
-	}
-
-	public void setBlogs(Set<Posts> blogs) {
-		this.blogs = blogs;
-	}
-
-	public Set<comments> getCmts() {
-		return cmts;
-	}
-
-	public void setCmts(Set<comments> cmts) {
-		this.cmts = cmts;
-	}
-
+	
 }

@@ -25,9 +25,9 @@ import javax.ws.rs.core.Response.Status;
 
 import com.cmad4.team8.blogrestcontroller.authentication.*;
 import com.cmad4.team8.blogrestcontroller.exceptions.BloggerException;
+
 import com.cmad4.team8.blogrestcontroller.user.api.Blogger;
 import com.cmad4.team8.blogrestcontroller.user.api.Blogger_Interface;
-import com.cmad4.team8.blogrestcontroller.user.service.Usercontroller;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -35,13 +35,16 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import com.cmad4.team8.blogrestcontroller.user.api.IncorrectLoginException;
 import com.cmad4.team8.blogrestcontroller.user.api.UserNotFoundException;
 import com.cmad4.team8.blogrestcontroller.user.api.UserNotFoundExcption;
+import com.cmad4.team8.blogrestcontroller.user.service.Usercontroller;
 
 @Path("/user")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 @Transactional
 public class BlogUserController {
-	private static Blogger_Interface bi = new Usercontroller();
+	
+	
+	private Blogger_Interface bi;
 	
 	@Context
     private UriInfo uriInfo;
@@ -52,6 +55,8 @@ public class BlogUserController {
 
 	public BlogUserController() {
 		// TODO Auto-generated constructor stub
+		
+		this.bi = new Usercontroller();
 	}
 	
 	@POST
@@ -59,6 +64,7 @@ public class BlogUserController {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response signup(Blogger b)
 	{
+		//bi.signup(b);
 		bi.signup(b);
 		return Response.ok().build();
 	}

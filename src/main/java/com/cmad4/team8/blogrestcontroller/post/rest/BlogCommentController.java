@@ -17,7 +17,6 @@ import javax.ws.rs.core.Response;
 
 import com.cmad4.team8.blogrestcontroller.authentication.JWTTokenNeeded;
 import com.cmad4.team8.blogrestcontroller.exceptions.CommentGeneralException;
-
 import com.cmad4.team8.blogrestcontroller.post.api.CommentNotFoundException;
 import com.cmad4.team8.blogrestcontroller.post.api.Comments_Interface;
 import com.cmad4.team8.blogrestcontroller.post.api.InvalidCommentException;
@@ -27,16 +26,21 @@ import com.cmad4.team8.blogrestcontroller.post.api.comments;
 import com.cmad4.team8.blogrestcontroller.post.service.CommentsController;
 
 
+
+
 @Path("/comment")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 @Transactional
 public class BlogCommentController {
 
-	private static Comments_Interface ci = new CommentsController();
+	
+	private Comments_Interface ci;
 	
 	public BlogCommentController() {
 		// TODO Auto-generated constructor stub
+		
+		this.ci = new CommentsController();
 	}
 	
 	@POST
@@ -52,7 +56,7 @@ public class BlogCommentController {
 	@GET
 	@Path("/{c_id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response read(@PathParam("c_id")int c_id) throws CommentNotFoundException, CommentGeneralException
+	public Response read(@PathParam("c_id")Long c_id) throws CommentNotFoundException, CommentGeneralException
 	{
 		comments c = ci.read(c_id);
 		return Response.ok().entity(c).build();
@@ -62,7 +66,7 @@ public class BlogCommentController {
     @Path("/query")
     public Response read(@QueryParam("user") String login_id,
     		@QueryParam("pagenum") int pageNum, 
-    		@QueryParam("post") int p_id) throws CommentNotFoundException, CommentGeneralException
+    		@QueryParam("post") Long p_id) throws CommentNotFoundException, CommentGeneralException
     {
     	List<comments> cmt_list;
     	GenericEntity<List<comments>> postentities;
@@ -79,7 +83,7 @@ public class BlogCommentController {
 
 	@DELETE
 	@Path("/{c_id}")
-	public Response removeComment(@PathParam("c_id")int c_id) throws CommentNotFoundException, CommentGeneralException
+	public Response removeComment(@PathParam("c_id")Long c_id) throws CommentNotFoundException, CommentGeneralException
 	{
 		ci.removeCmt(c_id);
 		return Response.ok().build();

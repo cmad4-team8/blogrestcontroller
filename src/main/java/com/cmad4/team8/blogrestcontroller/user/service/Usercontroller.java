@@ -1,20 +1,26 @@
 package com.cmad4.team8.blogrestcontroller.user.service;
 
 import com.cmad4.team8.blogrestcontroller.exceptions.BloggerException;
+import com.cmad4.team8.blogrestcontroller.mongo.service.BRControllerMongoService;
+import com.cmad4.team8.blogrestcontroller.mongo.service.BloggerMorphiaDAO;
+import com.cmad4.team8.blogrestcontroller.mongo.service.BloggerMorphiaDAO_Interface;
+
 import com.cmad4.team8.blogrestcontroller.user.api.Blogger;
 import com.cmad4.team8.blogrestcontroller.user.api.Blogger_Interface;
 import com.cmad4.team8.blogrestcontroller.user.api.DuplicateUserException;
 import com.cmad4.team8.blogrestcontroller.user.api.InvalidUserException;
 import com.cmad4.team8.blogrestcontroller.user.api.UserNotFoundException;
-import com.cmad4.team8.blogrestcontroller.user.data.BloggerDAO;
-import com.cmad4.team8.blogrestcontroller.user.data.JPABloggerDAO;
 
 public class Usercontroller implements Blogger_Interface {
 
-	private BloggerDAO dao = new JPABloggerDAO();
+	private BRControllerMongoService morphia;
+	private BloggerMorphiaDAO_Interface dao;
 	
 	public Usercontroller() {
 		// TODO Auto-generated constructor stub
+		this.morphia = new BRControllerMongoService();
+		this.dao = new BloggerMorphiaDAO(Blogger.class, this.morphia.getDatastore());
+	
 	}
 
 	@Override

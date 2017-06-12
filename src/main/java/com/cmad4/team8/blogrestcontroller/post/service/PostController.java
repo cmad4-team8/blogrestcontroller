@@ -3,20 +3,27 @@ package com.cmad4.team8.blogrestcontroller.post.service;
 import java.util.List;
 
 import com.cmad4.team8.blogrestcontroller.exceptions.PostsException;
+import com.cmad4.team8.blogrestcontroller.mongo.service.BRControllerMongoService;
+
+import com.cmad4.team8.blogrestcontroller.mongo.service.PostsMorphiaDAO;
+import com.cmad4.team8.blogrestcontroller.mongo.service.PostsMorphiaDAO_Interface;
 import com.cmad4.team8.blogrestcontroller.post.api.InvalidPostException;
 import com.cmad4.team8.blogrestcontroller.post.api.PostNotFoundException;
 import com.cmad4.team8.blogrestcontroller.post.api.Posts;
 import com.cmad4.team8.blogrestcontroller.post.api.Posts_interface;
-import com.cmad4.team8.blogrestcontroller.post.data.JPAPost;
-import com.cmad4.team8.blogrestcontroller.post.data.PostDAO;
+
+
 
 public class PostController implements Posts_interface {
 
-	private PostDAO dao = new JPAPost();
+	private BRControllerMongoService morphia;
+	private PostsMorphiaDAO_Interface dao;
 	
 	public PostController() {
 		super();
 		// TODO Auto-generated constructor stub
+		this.morphia = new BRControllerMongoService();
+		this.dao = new PostsMorphiaDAO(Posts.class, this.morphia.getDatastore());
 	}
 
 	@Override
@@ -42,7 +49,7 @@ public class PostController implements Posts_interface {
 	}
 
 	@Override
-	public void deletePost(int id) throws PostNotFoundException, PostsException {
+	public void deletePost(Long id) throws PostNotFoundException, PostsException {
 		// TODO Auto-generated method stub
 		if (dao.read(id) == null) {
 			throw new PostNotFoundException();
@@ -62,7 +69,7 @@ public class PostController implements Posts_interface {
 	}
 
 	@Override
-	public Posts read(int blogId) throws PostNotFoundException, PostsException {
+	public Posts read(Long blogId) throws PostNotFoundException, PostsException {
 		// TODO Auto-generated method stub
 		Posts blog = dao.read(blogId);
 		if (blog == null) {

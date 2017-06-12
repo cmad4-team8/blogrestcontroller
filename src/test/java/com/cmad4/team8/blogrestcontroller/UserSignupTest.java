@@ -2,7 +2,7 @@ package com.cmad4.team8.blogrestcontroller;
 
 import static org.junit.Assert.*;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
 import org.junit.runners.MethodSorters;
@@ -15,10 +15,12 @@ import com.cmad4.team8.blogrestcontroller.user.api.UserNotFoundException;
 import com.cmad4.team8.blogrestcontroller.user.service.Usercontroller;
 import com.google.gson.Gson;
 import com.cmad4.team8.blogrestcontroller.exceptions.BloggerException;
-import com.cmad4.team8.blogrestcontroller.post.api.InvalidPostException;
+
 import com.cmad4.team8.blogrestcontroller.post.api.Posts;
 import com.cmad4.team8.blogrestcontroller.post.api.Posts_interface;
 import com.cmad4.team8.blogrestcontroller.post.service.PostController;
+
+
 
 //@RunWith(HttpJUnitRunner.class)
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
@@ -34,16 +36,23 @@ public class UserSignupTest {
 	Date dob = new Date(1999, 6, 17);
 	
 	
+	
+	private Blogger_Interface bi;
+	private Posts_interface pi;
+	
 	String InvalidUser = "user1";
-	Blogger_Interface bi = new Usercontroller();
-	Posts_interface pi = new PostController();
 	
 	
-	
+	public UserSignupTest() {
+		super();
+		// TODO Auto-generated constructor stub
+		
+		this.bi = new Usercontroller();
+		this.pi = new PostController();
+	}
+
 	@Test
 	public void _1_AddUser() {
-		
-		//Blogger b = new Blogger(user,pwd,hint,f_name,l_name,email,dob,null);
 		Blogger b = new Blogger();
 		b.setLogin_id(user);
 		b.setPwd(pwd);
@@ -62,10 +71,7 @@ public class UserSignupTest {
 			// TODO: handle exception
 			fail("Not yet implemented");
 		}
-		
-		
 	}
-	
 	
 	@Test 
 	public void _2_findInvalidUser() {
@@ -83,7 +89,6 @@ public class UserSignupTest {
 		}
 		
 	}
-	
 	@Test
 	public void _3_Retrive_User() {
 		try {
@@ -116,10 +121,8 @@ public class UserSignupTest {
 			Test_Post.setPublished_content(Test_Post.getSaved_content());
 			//assert ("post id befor posting to post interface is " + Test_Post.getPid()) != null;
 			System.out.println("post id befor posting to post interface is " + Test_Post.getPid());
-			pi.saveandpublish(Test_Post);
-			
-		} catch (InvalidPostException e) {
-			fail("Error Creating posts");
+			Posts ret_post = pi.saveandpublish(Test_Post);
+			System.out.println("post id after posting to post interface is " + ret_post.getPid());
 		} catch (Exception e) {
 			fail("Exception while creating post is not expected");
 		}
@@ -135,8 +138,10 @@ public class UserSignupTest {
 			Test_Post.setTitle("Junit Test 2nd Blog Creation");
 			Test_Post.setSaved_content("This 2nd blog created for JUNIT testing and is mainly used to verify the retrieval of multiple posts");
 			Test_Post.setPublished_content("This 2nd blog created for JUNIT testing and is mainly used to verify the retrieval of multiple posts");
-			pi.saveandpublish(Test_Post).getPid();
-			System.out.println("post id after creating posts is " + Test_Post.getPid());
+			Posts ret_post = pi.saveandpublish(Test_Post);
+			System.out.println("post id after creating posts is " + ret_post.getPid());
+			
+			pi.deletePost(ret_post.getPid());
 		} catch (Exception e) {
 			fail("Exception while Updating post is not expected");
 		}
@@ -162,7 +167,6 @@ public class UserSignupTest {
 			fail("Exception while retrieving the post");
 		}
 	}
-	
 	@Test
 	public void _9_RemoveUser() {
 		try {
@@ -176,7 +180,6 @@ public class UserSignupTest {
 			fail("Not yet implemented");
 		}
 	}
-	
 
 
 }

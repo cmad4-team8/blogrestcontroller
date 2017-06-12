@@ -1,52 +1,28 @@
 package com.cmad4.team8.blogrestcontroller.post.api;
 
 import java.util.Date;
-import java.util.Set;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import org.mongodb.morphia.annotations.Entity;
+import org.mongodb.morphia.annotations.Id;
 
 
 
-@Entity(name = "Posts")
-@NamedQueries({ 
-	@NamedQuery(name = "Posts.getallposts", query = "SELECT b FROM Posts b"),
-    @NamedQuery(name = "Posts.del_blog_comments", query = "DELETE FROM comments c WHERE c.p_id = :p_id"),
-    @NamedQuery(name = "Posts.find_blogs_by_user", query = "SELECT b FROM Posts b WHERE b.login_id = :login_id") })
+@Entity
 public class Posts {
 
 	@Id
-	@GeneratedValue
-	private int p_id;
+	private Long p_id;
 	private String title;
 	private String login_id;
 	private Date postDate;
 	private int status;
-	//@JsonProperty(access = Access.WRITE_ONLY)
-	@JsonIgnore
 	private String saved_content;
-	//@JsonProperty(access = Access.WRITE_ONLY)
-	@JsonIgnore
 	private String published_content;
-	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
-	@JoinColumn(name = "p_id")
-	private Set<comments> cmts;
 	
 	public Posts() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Posts(int pid, String title, String login_id, Date postDate, int status, String saved_content,
+	public Posts(Long pid, String title, String login_id, Date postDate, int status, String saved_content,
 			String published_content) {
 		super();
 		this.p_id = pid;
@@ -58,11 +34,11 @@ public class Posts {
 		this.published_content = published_content;
 	}
 
-	public int getPid() {
+	public Long getPid() {
 		return p_id;
 	}
 
-	public void setPid(int pid) {
+	public void setPid(Long pid) {
 		this.p_id = pid;
 	}
 
@@ -98,33 +74,20 @@ public class Posts {
 		this.status = status;
 	}
 
-	@JsonIgnore
 	public String getSaved_content() {
 		return saved_content;
 	}
 
-	@JsonProperty
 	public void setSaved_content(String saved_content) {
 		this.saved_content = saved_content;
 	}
 
-	@JsonIgnore
 	public String getPublished_content() {
 		return published_content;
 	}
 
-	@JsonProperty
 	public void setPublished_content(String published_content) {
 		this.published_content = published_content;
 	}
-
-	public Set<comments> getCmts() {
-		return cmts;
-	}
-
-	public void setCmts(Set<comments> cmts) {
-		this.cmts = cmts;
-	}
-
 	
 }

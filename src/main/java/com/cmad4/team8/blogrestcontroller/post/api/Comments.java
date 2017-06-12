@@ -1,28 +1,21 @@
 package com.cmad4.team8.blogrestcontroller.post.api;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
+import org.mongodb.morphia.annotations.Entity;
+import org.mongodb.morphia.annotations.Id;
 
 @Entity
-@NamedQueries({ 
-	@NamedQuery(name = "comments.getallcommentsforpost", query = "SELECT c FROM comments c WHERE c.p_id = :p_id"),
-    @NamedQuery(name = "comments.getallcommentsbyuser", query = "SELECT b FROM comments b WHERE b.login_id = :login_id") })
 public class comments {
 	@Id
-	@GeneratedValue
-	private int c_id;
+	private Long c_id;
 	private String login_id;
-	private int p_id;
+	private Long p_id;
 	private String comment;
 
 	public comments() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public comments(int c_id, String login_id, int p_id, String comment) {
+	public comments(Long c_id, String login_id, Long p_id, String comment) {
 		super();
 		this.c_id = c_id;
 		this.login_id = login_id;
@@ -30,11 +23,11 @@ public class comments {
 		this.comment = comment;
 	}
 
-	public int getC_id() {
+	public Long getC_id() {
 		return c_id;
 	}
 
-	public void setC_id(int c_id) {
+	public void setC_id(Long c_id) {
 		this.c_id = c_id;
 	}
 
@@ -46,11 +39,11 @@ public class comments {
 		this.login_id = login_id;
 	}
 
-	public int getP_id() {
+	public Long getP_id() {
 		return p_id;
 	}
 
-	public void setP_id(int p_id) {
+	public void setP_id(Long p_id) {
 		this.p_id = p_id;
 	}
 

@@ -10,11 +10,11 @@ public interface Posts_interface {
 
     public Posts saveandpublish(Posts updatedBlog) throws InvalidPostException, PostsException;
 
-    public void deletePost(int id) throws PostNotFoundException, PostsException;
+    public void deletePost(Long id) throws PostNotFoundException, PostsException;
 
     public List<Posts> readAllPosts(int pageNum) throws PostNotFoundException, PostsException;
 
-    public Posts read(int blogId) throws PostNotFoundException, PostsException;
+    public Posts read(Long blogId) throws PostNotFoundException, PostsException;
 
     public List<Posts> readByUserId(String userId, int pageNum) throws PostNotFoundException, PostsException;
     

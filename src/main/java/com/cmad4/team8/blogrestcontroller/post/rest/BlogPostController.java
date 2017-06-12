@@ -18,6 +18,7 @@ import javax.ws.rs.core.Response;
 
 import com.cmad4.team8.blogrestcontroller.authentication.JWTTokenNeeded;
 import com.cmad4.team8.blogrestcontroller.exceptions.PostsException;
+
 import com.cmad4.team8.blogrestcontroller.post.api.InvalidPostException;
 import com.cmad4.team8.blogrestcontroller.post.api.PostNotFoundException;
 import com.cmad4.team8.blogrestcontroller.post.api.Posts;
@@ -25,16 +26,21 @@ import com.cmad4.team8.blogrestcontroller.post.api.Posts_interface;
 import com.cmad4.team8.blogrestcontroller.post.service.PostController;
 
 
+
+
 @Path("/post")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 @Transactional
 public class BlogPostController {
-	private static Posts_interface pi = new PostController();
+	
+	private Posts_interface pi;
 
 	public BlogPostController() {
 		super();
 		// TODO Auto-generated constructor stub
+		
+		this.pi = new PostController();
 	}
 	
 	@POST
@@ -59,7 +65,7 @@ public class BlogPostController {
 	
 	@GET
 	@Path("/{postid}")
-	public Response read(@PathParam("postid")int postid) throws PostNotFoundException, PostsException
+	public Response read(@PathParam("postid")Long postid) throws PostNotFoundException, PostsException
 	{
 		Posts p = pi.read(postid);
 		return Response.ok().entity(p).build();
@@ -88,7 +94,7 @@ public class BlogPostController {
     
     @DELETE
     @Path("/{postid}")
-    public Response removePost(@PathParam("postid")int postid) throws PostNotFoundException, PostsException
+    public Response removePost(@PathParam("postid")Long postid) throws PostNotFoundException, PostsException
     {
     	pi.deletePost(postid);
     	return Response.ok().build();

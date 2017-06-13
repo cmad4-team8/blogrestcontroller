@@ -24,24 +24,20 @@
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>3.8.1</version>
       <scope>test</scope>
     </dependency>
        	<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.12</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 		    <groupId>com.google.code.gson</groupId>
 		    <artifactId>gson</artifactId>
-		    <version>2.3.1</version>
-		</dependency>
+		    </dependency>
 		<dependency>
 		    <groupId>javax.transaction</groupId>
-		    <artifactId>javax.transaction-api</artifactId>
-		    <version>1.2</version>
+		    <artifactId>javax.transaction-api</artifactId>  
 		</dependency>
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -57,12 +53,12 @@
 		<dependency>
 			<groupId>org.glassfish.jersey.containers</groupId>
 			<artifactId>jersey-container-servlet</artifactId>
-			<version>${jersey2.version}</version>
+		
 		</dependency>
 		<dependency>
 			<groupId>org.glassfish.jersey.core</groupId>
 			<artifactId>jersey-server</artifactId>
-			<version>${jersey2.version}</version>
+	
 		</dependency>
 		<dependency>
 			<groupId>org.glassfish.jersey.core</groupId>
@@ -99,7 +95,7 @@
 		<dependency>
 			<groupId>org.mongodb</groupId>
 			<artifactId>mongo-java-driver</artifactId>
-			<version>3.4.2</version>
+		
 		</dependency>
 		<dependency>
 			<groupId>org.mongodb.morphia</groupId>
@@ -143,7 +139,7 @@
     <plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.3</version>
+			
 				<configuration>
 					<source>${java.version}</source>
 					<target>${java.version}</target>

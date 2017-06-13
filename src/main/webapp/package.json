@@ -4,11 +4,12 @@
   "description": "team8 front end development",
   "main": "main.js",
   "scripts": {
-    "start": "webpack-dev-server --hot"
+    "production": "webpack --env.production "
+
   },
   "repository": {
     "type": "git",
-    "url": "./"
+    "url": "/Users/syaragat/C/Team8/test"
   },
   "author": "syaragat",
   "license": "ISC",

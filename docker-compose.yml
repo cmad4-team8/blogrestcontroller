@@ -17,6 +17,8 @@ services:
     container_name: team8_brc
     environment:
       - "JAVA_OPTS=-Dmongo.host=db"
+      - db.host.name=10.64.67.98
+      - db.host.port=27017
 
   db:
     image: mongo

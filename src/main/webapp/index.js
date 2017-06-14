@@ -33376,13 +33376,14 @@ var RegisterUser = function (_React$Component) {
             if (this._validateInput()) {
 
                 $.ajax({
-                    url: 'rest/user/login',
+                    url: this.props.url,
                     dataType: 'json',
                     type: 'post',
                     contentType: "application/json; charset=utf-8",
                     cache: false,
                     success: function (data) {
                         this.setState({ data: data }); // Notice this
+                        console.log(data);
                     }.bind(this),
                     error: function (xhr, status, err) {
                         console.error(this.props.url, status, err.toString());
@@ -33402,29 +33403,30 @@ var RegisterUser = function (_React$Component) {
                 });
             }
         }
-    }, {
-        key: '_SendLoginDeatils',
-        value: function _SendLoginDeatils(form) {
-            var logindata = {
-                "login_id": form.loginName,
-                "pwd": form.password
-            };
+        /*
+        _SendLoginDeatils(form) {
+              var logindata = {
+                   "login_id" : form.loginName,
+                   "pwd": form.password
+              };
+             
+              $.ajax({
+                       url: this.props.url,
+                       dataType: 'json',
+                       type: 'post',
+                       contentType: "application/json; charset=utf-8",
+                       cache: false,
+                       success: function(data) {
+                           this.setState({data: data}); // Notice this
+                       }.bind(this),
+                       error: function(xhr, status, err) {
+                               console.error(this.props.url, status, err.toString());
+                       }.bind(this),
+                       data: JSON.stringify(logindata)
+              });
+              
+           }*/
 
-            $.ajax({
-                url: 'rest/user/login',
-                dataType: 'json',
-                type: 'post',
-                contentType: "application/json; charset=utf-8",
-                cache: false,
-                success: function (data) {
-                    this.setState({ data: data }); // Notice this
-                }.bind(this),
-                error: function (xhr, status, err) {
-                    console.error(this.prop.url, status, err.toString());
-                }.bind(this),
-                data: JSON.stringify(logindata)
-            });
-        }
     }, {
         key: 'handleChange',
         value: function handleChange(event, attribute) {

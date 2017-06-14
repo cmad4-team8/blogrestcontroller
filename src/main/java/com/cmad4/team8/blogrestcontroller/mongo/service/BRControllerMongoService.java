@@ -22,7 +22,12 @@ public class BRControllerMongoService {
 			//default server
 			host = "localhost";
 		}
-		port = Integer.parseInt(System.getenv("db.host.port"));
+		String port_Str = System.getenv("db.host.port");
+		if (port_Str != null) { 
+			port = Integer.parseInt(port_Str);
+		} else {
+			port = 27017;
+		}
 		if (port == 0) {
 			//default port
 			port =27017;

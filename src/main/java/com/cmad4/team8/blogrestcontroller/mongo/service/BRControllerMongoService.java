@@ -1,5 +1,7 @@
 package com.cmad4.team8.blogrestcontroller.mongo.service;
 
+import java.net.UnknownHostException;
+
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
  
@@ -10,7 +12,7 @@ public class BRControllerMongoService {
 	private Morphia morphia;
 	private Datastore datastore;
 	
-	public BRControllerMongoService() {
+	public BRControllerMongoService() throws UnknownHostException {
 		// TODO Auto-generated constructor stub
 		MongoClient mongoClient = new MongoClient("localhost:27017");
 		

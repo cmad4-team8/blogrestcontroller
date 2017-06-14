@@ -1,5 +1,6 @@
 package com.cmad4.team8.blogrestcontroller.post.service;
 
+import java.net.UnknownHostException;
 import java.util.List;
 
 import com.cmad4.team8.blogrestcontroller.exceptions.PostsException;
@@ -22,7 +23,12 @@ public class PostController implements Posts_interface {
 	public PostController() {
 		super();
 		// TODO Auto-generated constructor stub
-		this.morphia = new BRControllerMongoService();
+		try {
+			this.morphia = new BRControllerMongoService();
+		} catch (UnknownHostException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		this.dao = new PostsMorphiaDAO(Posts.class, this.morphia.getDatastore());
 	}
 

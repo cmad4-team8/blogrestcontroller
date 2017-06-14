@@ -1,5 +1,7 @@
 package com.cmad4.team8.blogrestcontroller.user.service;
 
+import java.net.UnknownHostException;
+
 import com.cmad4.team8.blogrestcontroller.exceptions.BloggerException;
 import com.cmad4.team8.blogrestcontroller.mongo.service.BRControllerMongoService;
 import com.cmad4.team8.blogrestcontroller.mongo.service.BloggerMorphiaDAO;
@@ -18,7 +20,12 @@ public class Usercontroller implements Blogger_Interface {
 	
 	public Usercontroller() {
 		// TODO Auto-generated constructor stub
-		this.morphia = new BRControllerMongoService();
+		try {
+			this.morphia = new BRControllerMongoService();
+		} catch (UnknownHostException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		this.dao = new BloggerMorphiaDAO(Blogger.class, this.morphia.getDatastore());
 	
 	}

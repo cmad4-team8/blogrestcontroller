@@ -12,7 +12,7 @@ import com.cmad4.team8.blogrestcontroller.post.api.CommentNotFoundException;
 import com.cmad4.team8.blogrestcontroller.post.api.Comments_Interface;
 import com.cmad4.team8.blogrestcontroller.post.api.InvalidCommentException;
 
-import com.cmad4.team8.blogrestcontroller.post.api.comments;
+import com.cmad4.team8.blogrestcontroller.post.api.Comments;
 
 
 public class CommentsController implements Comments_Interface {
@@ -28,11 +28,11 @@ public class CommentsController implements Comments_Interface {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		this.dao = new CommentsMorphiaDAO(comments.class, this.morphia.getDatastore());
+		this.dao = new CommentsMorphiaDAO(Comments.class, this.morphia.getDatastore());
 	}
 
 	@Override
-	public void Create(comments c) throws InvalidCommentException, CommentGeneralException {
+	public void Create(Comments c) throws InvalidCommentException, CommentGeneralException {
 		// TODO Auto-generated method stub
 		if (c==null) {
 			throw new InvalidCommentException();
@@ -42,9 +42,9 @@ public class CommentsController implements Comments_Interface {
 	}
 
 	@Override
-	public comments read(Long c_id) throws CommentNotFoundException, CommentGeneralException {
+	public Comments read(Long c_id) throws CommentNotFoundException, CommentGeneralException {
 		// TODO Auto-generated method stub
-		comments c = dao.read(c_id);
+		Comments c = dao.read(c_id);
 		if (c == null) {
 			throw new CommentNotFoundException();
 		}
@@ -52,9 +52,9 @@ public class CommentsController implements Comments_Interface {
 	}
 
 	@Override
-	public List<comments> readallbypost(Long p_id, int pagenum) throws CommentNotFoundException, CommentGeneralException {
+	public List<Comments> readallbypost(Long p_id, int pagenum) throws CommentNotFoundException, CommentGeneralException {
 		// TODO Auto-generated method stub
-		List<comments> c_list = dao.read_all_by_post(p_id, pagenum);
+		List<Comments> c_list = dao.read_all_by_post(p_id, pagenum);
 		
 		if (c_list == null) {
 			throw new CommentNotFoundException();
@@ -63,9 +63,9 @@ public class CommentsController implements Comments_Interface {
 	}
 
 	@Override
-	public List<comments> readallbyuser(String login_id, int pagenum) throws CommentNotFoundException, CommentGeneralException {
+	public List<Comments> readallbyuser(String login_id, int pagenum) throws CommentNotFoundException, CommentGeneralException {
 		// TODO Auto-generated method stub
-		List<comments> c_list = dao.read_all_by_user(login_id, pagenum);
+		List<Comments> c_list = dao.read_all_by_user(login_id, pagenum);
 		
 		if (c_list == null) {
 			throw new CommentNotFoundException();
@@ -76,7 +76,7 @@ public class CommentsController implements Comments_Interface {
 	@Override
 	public void removeCmt(Long c_id) throws CommentNotFoundException, CommentGeneralException {
 		// TODO Auto-generated method stub
-		comments c = dao.read(c_id);
+		Comments c = dao.read(c_id);
 		if (c == null) {
 			throw new CommentNotFoundException();
 		}

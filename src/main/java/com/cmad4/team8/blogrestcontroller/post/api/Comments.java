@@ -4,18 +4,18 @@ import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
 
 @Entity
-public class comments {
+public class Comments {
 	@Id
 	private Long c_id;
 	private String login_id;
 	private Long p_id;
 	private String comment;
 
-	public comments() {
+	public Comments() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public comments(Long c_id, String login_id, Long p_id, String comment) {
+	public Comments(Long c_id, String login_id, Long p_id, String comment) {
 		super();
 		this.c_id = c_id;
 		this.login_id = login_id;

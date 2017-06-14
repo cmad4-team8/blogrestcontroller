@@ -14,6 +14,13 @@ services:
       - 7000:8080
     networks: 
       - nw01      
+    container_name: team8_brc
+    environment:
+      - "JAVA_OPTS=-Dmongo.host=db"
+
   db:
-    image: mysql:5.7
+    image: mongo
+    container_name: mongodb 
+    expose:
+      "27017"
     

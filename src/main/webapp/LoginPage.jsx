@@ -10,7 +10,8 @@ class LoginPage extends React.Component {
        constructor(props) {
            super(props);
            this.state = {
-               loginName: '', password: '', error: false
+               loginName: '', password: '',
+               url: ' ', error: false
            }
            /* we have to bind this */
            this.handleSubmit = this.handleSubmit.bind(this);
@@ -43,21 +44,28 @@ class LoginPage extends React.Component {
            var logindata = {
                 "login_id" : form.loginName,
                 "pwd": form.password
+            
            };
 
          
            $.ajax({
-                    url: 'rest/user/login',
+                    type: 'POST',
                     dataType: 'json',
-                    type: 'post',
+                    url: this.props.url,
                     contentType: "application/json; charset=utf-8",
                     cache: false,
                     success: function(data) {
                         this.setState({data: data}); // Notice this
+                        console.log(JSON.parse(data));
+                        alert("Loging success");
                     }.bind(this),
                     error: function(xhr, status, err) {
-                            console.error(this.prop.url, status, err.toString());
+                            console.log(status);
+                            console.log(JSON.parse(data));
+                            console.error(this.props.url, status, err.toString());
+                            alert("Loging failed");
                     }.bind(this),
+
                     data: JSON.stringify(logindata)
            });
            
@@ -88,6 +96,7 @@ class LoginPage extends React.Component {
 
       updateFormData(formData) {
        console.log(formData);
+       console.log(this.props.url);
        alert('Loging user '+formData.loginName);
        this._SendLoginDeatils(formData);
      }

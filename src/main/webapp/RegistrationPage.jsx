@@ -19,6 +19,7 @@ class RegisterUser extends React.Component {
                   doB:"",
                   emailId:"",
                   checked:false, 
+                  url:'',
                   error: false
            }
            /* we have to bind this */
@@ -67,16 +68,18 @@ class RegisterUser extends React.Component {
             if (this._validateInput()) {
 
                 $.ajax({
-                    url: 'rest/user/login',
+                    url: this.props.url,
                     dataType: 'json',
                     type: 'post',
                     contentType: "application/json; charset=utf-8",
                     cache: false,
                     success: function(data) {
                         this.setState({data: data}); // Notice this
+                        console.log(JSON.parse(data));
                     }.bind(this),
                     error: function(xhr, status, err) {
-                            console.error('rest/user/login', status, err.toString());
+                            console.log(JSON.parse(data));
+                            console.error(this.props.url, status, err.toString());
                     }.bind(this),
                     data: JSON.stringify(formData)
                });
@@ -93,7 +96,7 @@ class RegisterUser extends React.Component {
               });
           }
        }
-
+     /*
      _SendLoginDeatils(form) {
            var logindata = {
                 "login_id" : form.loginName,
@@ -102,7 +105,7 @@ class RegisterUser extends React.Component {
 
          
            $.ajax({
-                    url: 'rest/user/login',
+                    url: this.props.url,
                     dataType: 'json',
                     type: 'post',
                     contentType: "application/json; charset=utf-8",
@@ -111,12 +114,12 @@ class RegisterUser extends React.Component {
                         this.setState({data: data}); // Notice this
                     }.bind(this),
                     error: function(xhr, status, err) {
-                            console.error(this.prop.url, status, err.toString());
+                            console.error(this.props.url, status, err.toString());
                     }.bind(this),
                     data: JSON.stringify(logindata)
            });
            
-       }
+        }*/
 
      handleChange(event, attribute) {
         var newState = this.state;

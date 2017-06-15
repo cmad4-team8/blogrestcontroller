@@ -10,7 +10,9 @@ class NewPost extends React.Component {
        constructor(props) {
            super(props);
            this.state = {
-               postTitle: '', postData: '', error: false
+               postTitle: '', postData: '',
+               status: '',
+               url: '', error: false
            }
            /* we have to bind this */
            this.handleSubmit = this.handleSubmit.bind(this);
@@ -38,27 +40,32 @@ class NewPost extends React.Component {
           }
 
        }
-       
+       // for save status : 0
+       // save and publish status : 1
+
        _SendLoginDeatils(form) {
-           var logindata = {
-                "login_id" : form.postTitle,
-                "pwd": form.postData
+           var blogpost = {
+                "title" : form.postTitle,
+                "saved_content": form.postData,
+                "status": 0
            };
 
          
            $.ajax({
-                    url: 'rest/user/login',
+                    url: this.props.url,
                     dataType: 'json',
                     type: 'post',
                     contentType: "application/json; charset=utf-8",
                     cache: false,
                     success: function(data) {
                         this.setState({data: data}); // Notice this
+                        console.log(JSON.parse(data));
                     }.bind(this),
                     error: function(xhr, status, err) {
-                            console.error(this.prop.url, status, err.toString());
+                            console.log(JSON.parse(data)); 
+                            console.error(this.props.url, status, err.toString());
                     }.bind(this),
-                    data: JSON.stringify(logindata)
+                    data: JSON.stringify(blogpost)
            });
            
        }
@@ -141,7 +148,8 @@ class NewPost extends React.Component {
 
 NewPost.PropTypes = {
      postTitle: PropTypes.string.isRequired,
-     postData: PropTypes.string.isRequired
+     postData: PropTypes.string.isRequired,
+     url: PropTypes.string.isRequired
 
 }
 export default NewPost;

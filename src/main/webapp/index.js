@@ -32449,7 +32449,8 @@ var LoginPage = function (_React$Component) {
         var _this = _possibleConstructorReturn(this, (LoginPage.__proto__ || Object.getPrototypeOf(LoginPage)).call(this, props));
 
         _this.state = {
-            loginName: '', password: '', error: false
+            loginName: '', password: '',
+            url: ' ', error: false
             /* we have to bind this */
         };_this.handleSubmit = _this.handleSubmit.bind(_this);
         return _this;
@@ -32484,6 +32485,7 @@ var LoginPage = function (_React$Component) {
             var logindata = {
                 "login_id": form.loginName,
                 "pwd": form.password
+
             };
 
             $.ajax({
@@ -32494,10 +32496,13 @@ var LoginPage = function (_React$Component) {
                 cache: false,
                 success: function (data) {
                     this.setState({ data: data }); // Notice this
+                    alert("Loging success");
                 }.bind(this),
                 error: function (xhr, status, err) {
-                    console.error(this.prop.url, status, err.toString());
+                    console.error(this.props.url, status, err.toString());
+                    alert("Loging failed");
                 }.bind(this),
+
                 data: JSON.stringify(logindata)
             });
         }
@@ -32530,6 +32535,7 @@ var LoginPage = function (_React$Component) {
         key: 'updateFormData',
         value: function updateFormData(formData) {
             console.log(formData);
+            console.log(this.props.url);
             alert('Loging user ' + formData.loginName);
             this._SendLoginDeatils(formData);
         }
@@ -32837,7 +32843,9 @@ var NewPost = function (_React$Component) {
         var _this = _possibleConstructorReturn(this, (NewPost.__proto__ || Object.getPrototypeOf(NewPost)).call(this, props));
 
         _this.state = {
-            postTitle: '', postData: '', error: false
+            postTitle: '', postData: '',
+            status: '',
+            url: '', error: false
             /* we have to bind this */
         };_this.handleSubmit = _this.handleSubmit.bind(_this);
         return _this;
@@ -32866,27 +32874,32 @@ var NewPost = function (_React$Component) {
                 return true;
             }
         }
+        // for save status : 0
+        // save and publish status : 1
+
     }, {
         key: '_SendLoginDeatils',
         value: function _SendLoginDeatils(form) {
-            var logindata = {
-                "login_id": form.postTitle,
-                "pwd": form.postData
+            var blogpost = {
+                "title": form.postTitle,
+                "saved_content": form.postData,
+                "status": 0
             };
 
             $.ajax({
-                url: 'rest/user/login',
+                url: this.props.url,
                 dataType: 'json',
                 type: 'post',
                 contentType: "application/json; charset=utf-8",
                 cache: false,
                 success: function (data) {
                     this.setState({ data: data }); // Notice this
+                    console.log(data);
                 }.bind(this),
                 error: function (xhr, status, err) {
-                    console.error(this.prop.url, status, err.toString());
+                    console.error(this.props.url, status, err.toString());
                 }.bind(this),
-                data: JSON.stringify(logindata)
+                data: JSON.stringify(blogpost)
             });
         }
     }, {
@@ -32987,7 +33000,8 @@ var NewPost = function (_React$Component) {
 
 NewPost.PropTypes = {
     postTitle: _propTypes2.default.string.isRequired,
-    postData: _propTypes2.default.string.isRequired
+    postData: _propTypes2.default.string.isRequired,
+    url: _propTypes2.default.string.isRequired
 
 };
 exports.default = NewPost;
@@ -33043,6 +33057,7 @@ var ProfileUpdate = function (_React$Component) {
             loginName: "",
             doB: "",
             emailId: "",
+            url: "",
             error: false
             /* we have to bind this */
         };_this.handleSubmit = _this.handleSubmit.bind(_this);
@@ -33080,10 +33095,6 @@ var ProfileUpdate = function (_React$Component) {
             event.preventDefault();
 
             var formData = {
-                "login_id": this.state.loginName,
-                "pwd": this.state.password,
-                "cpwd": this.state.cpassword,
-                "hint": this.state.userHint,
                 "f_name": this.state.firstName,
                 "l_name": this.state.lastName,
                 "email": this.state.emailId,
@@ -33093,7 +33104,7 @@ var ProfileUpdate = function (_React$Component) {
             if (this._validateInput()) {
 
                 $.ajax({
-                    url: 'rest/user/login',
+                    url: this.props.url,
                     dataType: 'json',
                     type: 'post',
                     contentType: "application/json; charset=utf-8",
@@ -33102,17 +33113,13 @@ var ProfileUpdate = function (_React$Component) {
                         this.setState({ data: data }); // Notice this
                     }.bind(this),
                     error: function (xhr, status, err) {
-                        console.error('rest/user/login', status, err.toString());
+                        console.error(this.props.url, status, err.toString());
                     }.bind(this),
                     data: JSON.stringify(formData)
                 });
                 this.setState({
                     firstName: "",
                     lastName: "",
-                    loginName: "",
-                    password: "",
-                    cpassword: "",
-                    userHint: "",
                     doB: "",
                     emailId: ""
                 });
@@ -33122,14 +33129,16 @@ var ProfileUpdate = function (_React$Component) {
         key: '_SendLoginDeatils',
         value: function _SendLoginDeatils(form) {
             var logindata = {
-                "login_id": form.loginName,
-                "pwd": form.password
+                "f_name": this.state.firstName,
+                "l_name": this.state.lastName,
+                "email": this.state.emailId,
+                "dob": this.state.doB
             };
 
             $.ajax({
-                url: 'rest/user/login',
+                url: this.prop.url,
                 dataType: 'json',
-                type: 'post',
+                type: 'put',
                 contentType: "application/json; charset=utf-8",
                 cache: false,
                 success: function (data) {
@@ -33316,6 +33325,7 @@ var RegisterUser = function (_React$Component) {
             doB: "",
             emailId: "",
             checked: false,
+            url: '',
             error: false
             /* we have to bind this */
         };_this.handleSubmit = _this.handleSubmit.bind(_this);
@@ -33366,16 +33376,17 @@ var RegisterUser = function (_React$Component) {
             if (this._validateInput()) {
 
                 $.ajax({
-                    url: 'rest/user/login',
+                    url: this.props.url,
                     dataType: 'json',
                     type: 'post',
                     contentType: "application/json; charset=utf-8",
                     cache: false,
                     success: function (data) {
                         this.setState({ data: data }); // Notice this
+                        console.log(data);
                     }.bind(this),
                     error: function (xhr, status, err) {
-                        console.error('rest/user/login', status, err.toString());
+                        console.error(this.props.url, status, err.toString());
                     }.bind(this),
                     data: JSON.stringify(formData)
                 });
@@ -33392,29 +33403,30 @@ var RegisterUser = function (_React$Component) {
                 });
             }
         }
-    }, {
-        key: '_SendLoginDeatils',
-        value: function _SendLoginDeatils(form) {
-            var logindata = {
-                "login_id": form.loginName,
-                "pwd": form.password
-            };
+        /*
+        _SendLoginDeatils(form) {
+              var logindata = {
+                   "login_id" : form.loginName,
+                   "pwd": form.password
+              };
+             
+              $.ajax({
+                       url: this.props.url,
+                       dataType: 'json',
+                       type: 'post',
+                       contentType: "application/json; charset=utf-8",
+                       cache: false,
+                       success: function(data) {
+                           this.setState({data: data}); // Notice this
+                       }.bind(this),
+                       error: function(xhr, status, err) {
+                               console.error(this.props.url, status, err.toString());
+                       }.bind(this),
+                       data: JSON.stringify(logindata)
+              });
+              
+           }*/
 
-            $.ajax({
-                url: 'rest/user/login',
-                dataType: 'json',
-                type: 'post',
-                contentType: "application/json; charset=utf-8",
-                cache: false,
-                success: function (data) {
-                    this.setState({ data: data }); // Notice this
-                }.bind(this),
-                error: function (xhr, status, err) {
-                    console.error(this.prop.url, status, err.toString());
-                }.bind(this),
-                data: JSON.stringify(logindata)
-            });
-        }
     }, {
         key: 'handleChange',
         value: function handleChange(event, attribute) {
@@ -44001,10 +44013,10 @@ _reactDom2.default.render(_react2.default.createElement(_NavigationPage2.default
 
 // import  JSX files 
 
-_reactDom2.default.render(_react2.default.createElement(_LoginPage2.default, null), document.getElementById('loginPage'));
-_reactDom2.default.render(_react2.default.createElement(_RegistrationPage2.default, null), document.getElementById('registrationPage'));
-_reactDom2.default.render(_react2.default.createElement(_NewPost2.default, null), document.getElementById('newpostPage'));
-_reactDom2.default.render(_react2.default.createElement(_ProfileUpdate2.default, null), document.getElementById('updateprofile')
+_reactDom2.default.render(_react2.default.createElement(_LoginPage2.default, { url: 'rest/user/login' }), document.getElementById('loginPage'));
+_reactDom2.default.render(_react2.default.createElement(_RegistrationPage2.default, { url: 'rest/user/signup' }), document.getElementById('registrationPage'));
+_reactDom2.default.render(_react2.default.createElement(_NewPost2.default, { url: 'blog/post/create' }), document.getElementById('newpostPage'));
+_reactDom2.default.render(_react2.default.createElement(_ProfileUpdate2.default, { url: 'rest/user/prof_update' }), document.getElementById('updateprofile')
 
 // Jquey
 

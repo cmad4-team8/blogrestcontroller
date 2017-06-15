@@ -15,6 +15,7 @@ class ProfileUpdate extends React.Component {
                   loginName: "", 
                   doB:"",
                   emailId:"",
+                  url: "",
                   error: false
            }
            /* we have to bind this */
@@ -50,10 +51,6 @@ class ProfileUpdate extends React.Component {
            event.preventDefault();
 
            var formData = { 
-               "login_id" : this.state.loginName,
-               "pwd": this.state.password,
-               "cpwd":this.state.cpassword,
-               "hint":this.state.userHint,
                "f_name":this.state.firstName,
                "l_name":this.state.lastName,
                "email":this.state.emailId,
@@ -63,7 +60,7 @@ class ProfileUpdate extends React.Component {
             if (this._validateInput()) {
 
                 $.ajax({
-                    url: 'rest/user/login',
+                    url: this.props.url,
                     dataType: 'json',
                     type: 'post',
                     contentType: "application/json; charset=utf-8",
@@ -72,17 +69,13 @@ class ProfileUpdate extends React.Component {
                         this.setState({data: data}); // Notice this
                     }.bind(this),
                     error: function(xhr, status, err) {
-                            console.error('rest/user/login', status, err.toString());
+                            console.error(this.props.url, status, err.toString());
                     }.bind(this),
                     data: JSON.stringify(formData)
                });
               this.setState({
                   firstName:"",
                   lastName:"",
-                  loginName: "", 
-                  password: "",
-                  cpassword:"",
-                  userHint:"",
                   doB:"",
                   emailId:"",
               });
@@ -91,15 +84,17 @@ class ProfileUpdate extends React.Component {
 
      _SendLoginDeatils(form) {
            var logindata = {
-                "login_id" : form.loginName,
-                "pwd": form.password
+                "f_name":this.state.firstName,
+               "l_name":this.state.lastName,
+               "email":this.state.emailId,
+               "dob":this.state.doB
            };
 
          
            $.ajax({
-                    url: 'rest/user/login',
+                    url: this.prop.url,
                     dataType: 'json',
-                    type: 'post',
+                    type: 'put',
                     contentType: "application/json; charset=utf-8",
                     cache: false,
                     success: function(data) {

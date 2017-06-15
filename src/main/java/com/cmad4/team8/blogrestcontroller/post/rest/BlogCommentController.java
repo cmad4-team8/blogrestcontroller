@@ -22,7 +22,7 @@ import com.cmad4.team8.blogrestcontroller.post.api.Comments_Interface;
 import com.cmad4.team8.blogrestcontroller.post.api.InvalidCommentException;
 
 
-import com.cmad4.team8.blogrestcontroller.post.api.comments;
+import com.cmad4.team8.blogrestcontroller.post.api.Comments;
 import com.cmad4.team8.blogrestcontroller.post.service.CommentsController;
 
 
@@ -47,7 +47,7 @@ public class BlogCommentController {
 	@Path("/create")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@JWTTokenNeeded
-	public Response create(comments c) throws InvalidCommentException, CommentGeneralException
+	public Response create(Comments c) throws InvalidCommentException, CommentGeneralException
 	{
 		ci.Create(c);
 		return Response.ok().build();
@@ -58,7 +58,7 @@ public class BlogCommentController {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response read(@PathParam("c_id")Long c_id) throws CommentNotFoundException, CommentGeneralException
 	{
-		comments c = ci.read(c_id);
+		Comments c = ci.read(c_id);
 		return Response.ok().entity(c).build();
 	}
 	
@@ -68,14 +68,14 @@ public class BlogCommentController {
     		@QueryParam("pagenum") int pageNum, 
     		@QueryParam("post") Long p_id) throws CommentNotFoundException, CommentGeneralException
     {
-    	List<comments> cmt_list;
-    	GenericEntity<List<comments>> postentities;
+    	List<Comments> cmt_list;
+    	GenericEntity<List<Comments>> postentities;
     	if (login_id != null) {
     	    cmt_list = ci.readallbyuser(login_id, pageNum);
     	} else {
     		cmt_list = ci.readallbypost(p_id, pageNum);
     	}
-    	postentities = new GenericEntity<List<comments>>(cmt_list){
+    	postentities = new GenericEntity<List<Comments>>(cmt_list){
     		
     	};
     	return Response.ok().entity(postentities).build();	

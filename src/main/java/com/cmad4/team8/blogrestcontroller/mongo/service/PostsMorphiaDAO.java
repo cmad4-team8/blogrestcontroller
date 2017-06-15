@@ -7,7 +7,7 @@ import org.mongodb.morphia.dao.BasicDAO;
 import org.mongodb.morphia.query.Query;
 
 import com.cmad4.team8.blogrestcontroller.post.api.Posts;
-import com.cmad4.team8.blogrestcontroller.post.api.comments;
+import com.cmad4.team8.blogrestcontroller.post.api.Comments;
 
 public class PostsMorphiaDAO extends BasicDAO<Posts, Long> implements PostsMorphiaDAO_Interface{
 	private CustomSequence_Interface cus_int;
@@ -82,7 +82,7 @@ public class PostsMorphiaDAO extends BasicDAO<Posts, Long> implements PostsMorph
 	public void deletePostwithComments(Long p_id, CommentsMorphiaDAO_Interface ci)
 	{
 		if (ci == null) {
-			ci = new CommentsMorphiaDAO(comments.class, this.getDatastore());
+			ci = new CommentsMorphiaDAO(Comments.class, this.getDatastore());
 		}
 		ci.delete_cmts_by_Post(p_id);
 		this.deleteById(p_id);
@@ -92,7 +92,7 @@ public class PostsMorphiaDAO extends BasicDAO<Posts, Long> implements PostsMorph
 	public void deletePostbyUserId (String login_id) {
 		
 		
-		CommentsMorphiaDAO_Interface ci = new CommentsMorphiaDAO(comments.class, this.getDatastore());
+		CommentsMorphiaDAO_Interface ci = new CommentsMorphiaDAO(Comments.class, this.getDatastore());
 		Query<Posts> query = this.getDatastore().find(Posts.class);
 		query.or(query.criteria("login_id").equal(login_id));
 		

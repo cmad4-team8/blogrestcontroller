@@ -53,12 +53,12 @@
 		<dependency>
 			<groupId>org.glassfish.jersey.containers</groupId>
 			<artifactId>jersey-container-servlet</artifactId>
-		
+			<version>${jersey2.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.glassfish.jersey.core</groupId>
 			<artifactId>jersey-server</artifactId>
-	
+			<version>${jersey2.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.glassfish.jersey.core</groupId>
@@ -95,7 +95,7 @@
 		<dependency>
 			<groupId>org.mongodb</groupId>
 			<artifactId>mongo-java-driver</artifactId>
-		
+			<version>3.4.2</version>
 		</dependency>
 		<dependency>
 			<groupId>org.mongodb.morphia</groupId>
@@ -133,6 +133,12 @@
             <artifactId>scala-library</artifactId>
             <version>2.11.0</version>
         </dependency>
+        <dependency>
+    <groupId>org.mongodb</groupId>
+    <artifactId>bson</artifactId>
+    <version>3.4.2</version>
+</dependency>
+
   </dependencies>
   <build>
     <finalName>blogrestcontroller</finalName>

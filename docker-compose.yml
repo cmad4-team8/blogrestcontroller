@@ -14,6 +14,14 @@ services:
       - 7000:8080
     networks: 
       - nw01      
+    container_name: team8_brc
+    environment:
+      - "JAVA_OPTS=-Dmongo.host=db"
+      - db.host.name=10.64.67.98
+      - db.host.port=27017
+
   db:
-    image: mysql:5.7
-    
+    image: mongo
+    container_name: mongodb 
+    ports:
+      - 27017:27017 

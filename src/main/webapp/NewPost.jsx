@@ -1,9 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {Button, ButtonGroup, Glyphicon,Jumbotron, Table, Row, Col, Form, FormGroup,FormControl } from  'react-bootstrap';
-import {ControlLabel, Input}from  'react-bootstrap'
+import {Button, ButtonGroup, Glyphicon,Jumbotron, Table, Row, Col, Form, FormGroup,FormControl, Modal } from  'react-bootstrap';
+import {ControlLabel, Input} from  'react-bootstrap'
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
 import PropTypes from 'prop-types';
+import Print from './MyModal.jsx'
+
+
 
 class NewPost extends React.Component {
 
@@ -11,11 +14,16 @@ class NewPost extends React.Component {
            super(props);
            this.state = {
                postTitle: '', postData: '',
-               status: '',
+               user: '', postDate: '',
+               saved_content:'',
+               publish_conent:'',
+               poststatus: '',
                url: '', error: false
            }
            /* we have to bind this */
            this.handleSubmit = this.handleSubmit.bind(this);
+           this.handlePublish = this.handlePublish.bind(this);
+           this.handleSave = this.handleSave.bind(this);
        }
     
 
@@ -44,17 +52,34 @@ class NewPost extends React.Component {
        // save and publish status : 1
 
        _SendLoginDeatils(form) {
+
+          alert("submitting for login id "+this.props.login_id)
+           if (this.poststatus == 0) {
+               this.setState({
+                saved_content : form.postData,
+                publish_conent : ""
+               });  
+           } else {
+               this.setState({
+                saved_content : "",
+                publish_conent : form.postData
+               });
+           }
            var blogpost = {
                 "title" : form.postTitle,
-                "saved_content": form.postData,
-                "status": 0
+                "saved_content": this.saved_content,
+                "published_content": this.publish_conent,
+                "status": this.poststatus,
+                "login_id": this.props.login_id,
+                "postDate": new Date
            };
 
          
            $.ajax({
-                    url: this.props.url,
+                  
                     dataType: 'json',
-                    type: 'post',
+                    type: 'POST',
+                    url: this.props.url,
                     contentType: "application/json; charset=utf-8",
                     cache: false,
                     success: function(data) {
@@ -62,26 +87,48 @@ class NewPost extends React.Component {
                         console.log(JSON.parse(data));
                     }.bind(this),
                     error: function(xhr, status, err) {
-                            console.log(JSON.parse(data)); 
+                           if(xhr.status == 404) {
+                              alert("Invalid user : "+this.props.login_id);
+                           } else {
+                            console.log(xhr); 
+                            console.log(status, err);
                             console.error(this.props.url, status, err.toString());
+                           }
                     }.bind(this),
                     data: JSON.stringify(blogpost)
            });
            
        }
 
+       handleSave(event) {
+           alert("set state to 0")
+           this.setState({
+               poststatus : 0
+           });
+       }
+       handlePublish(event){
+           alert("set state to 1")
+           this.setState({
+              poststatus : 1
+           });
+       }
        handleSubmit(event) {
            event.preventDefault();
-
+          
           var formData = { postTitle: this.state.postTitle,
                            postData: this.state.postData};
 
           if (this._validateInput()) {
-              //this.props.updateFormData(formData);
+
               this.updateFormData(formData);
               this.setState({
                   postTitle: "", 
-                  postData:  ""
+                  postData:  "",
+                  publish_conent: "",
+                  saved_content: "",
+                  postDate: "",
+                  user: "'"
+
               });
           }
        }
@@ -95,25 +142,33 @@ class NewPost extends React.Component {
 
       updateFormData(formData) {
        console.log(formData);
-       alert('submitted for '+formData.postTitle);
        this._SendLoginDeatils(formData);
      }
 
      
 
     render(){
-
+        var textareaStyle = {
+      padding: '10px 8px',
+      border: '1px solid rgba(39,41,43,.15)',
+      borderRadius: 4,
+      fontSize: 15,
+      width: 500
+      };
         var errorMessage = this._renderError();
 
         return (
          <div className="login jumbotron center-block" style={{paddingLeft:100 , paddingRight:250}} id='login-blogger-post'>
          <h1 style={{paddingLeft:100}}>New blog post</h1>
                 {errorMessage}
+
+
+
           <div style={{width: 200, paddingLeft:100}}>
             <form onSubmit={this.handleSubmit} >
                 <div className="form-group">
                   <input className="form-control"
-                     style={{width:300, height:50}}
+                     style={{width:400, height:50}}
                      type="text"
                      placeholder="new post title"
                      value={this.state.firstName}
@@ -125,15 +180,23 @@ class NewPost extends React.Component {
                     <textarea   className="form-control"
                         value={this.state.value} 
                         rows="10"
+                        style={textareaStyle}
                         onChange={(event) => this.handleChange(event, 'postData')} />
                  
+                </div>
+                <div className="form-group">
+                  <button type="submit"
+                      ref="save" 
+                      className="btn btn-success" onClick={this.handleSave}>
+                    Save
+                  </button>
                 </div>
 
                 <div className="form-group">
                   <button type="submit"
-                      ref="submit"
-                      className="btn btn-success">
-                    Submit
+                      ref="publish"
+                      className="btn btn-success" onClick={this.handlePublish}>
+                    Publish
                   </button>
                 </div>
 
@@ -147,11 +210,12 @@ class NewPost extends React.Component {
 }
 
 NewPost.PropTypes = {
-     postTitle: PropTypes.string.isRequired,
-     postData: PropTypes.string.isRequired,
-     url: PropTypes.string.isRequired
+     url: PropTypes.string.isRequired,
+     login_id : PropTypes.string.isRequired
+
 
 }
+
 export default NewPost;
 
 

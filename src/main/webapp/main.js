@@ -14,10 +14,10 @@ import ProfileUpdate from './ProfileUpdate.jsx'
 // react calls
 
 ReactDOM.render(<NavigationPage />, document.getElementById('navigation'));
-ReactDOM.render(<LoginPage />, document.getElementById('loginPage'));
-ReactDOM.render(<RegisterUser />, document.getElementById('registrationPage'));
-ReactDOM.render(<NewPost />, document.getElementById('newpostPage'));
-ReactDOM.render(<ProfileUpdate />, document.getElementById('updateprofile'))
+ReactDOM.render(<LoginPage url={'rest/user/login'} />, document.getElementById('loginPage'));
+ReactDOM.render(<RegisterUser url={'rest/user/signup'} />, document.getElementById('registrationPage'));
+ReactDOM.render(<NewPost url={'blog/post/create'} />, document.getElementById('newpostPage'));
+ReactDOM.render(<ProfileUpdate url={'rest/user/prof_update'} />, document.getElementById('updateprofile'))
 
 // Jquey
 

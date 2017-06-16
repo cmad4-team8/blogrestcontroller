@@ -1,5 +1,6 @@
 FROM tomcat:jre8
 MAINTAINER Praveen
+RUN \
 rm -rf /opt/tomcat/webapps/examples && \
 rm -rf /opt/tomcat/webapps/docs && \
 rm -rf /opt/tomcat/webapps/ROOT && \

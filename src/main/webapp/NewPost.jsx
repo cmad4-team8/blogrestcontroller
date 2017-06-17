@@ -16,7 +16,7 @@ class NewPost extends React.Component {
                postTitle: '', postData: '',
                user: '', postDate: '',
                saved_content:'',
-               publish_conent:'',
+               publish_content:'',
                poststatus: '',
                url: '', error: false
            }
@@ -52,24 +52,11 @@ class NewPost extends React.Component {
        // save and publish status : 1
 
        _SendLoginDeatils(form) {
-
-          alert("submitting for login id "+this.props.login_id)
-           if (this.poststatus == 0) {
-               this.setState({
-                saved_content : form.postData,
-                publish_conent : ""
-               });  
-           } else {
-               this.setState({
-                saved_content : "",
-                publish_conent : form.postData
-               });
-           }
            var blogpost = {
                 "title" : form.postTitle,
-                "saved_content": this.saved_content,
-                "published_content": this.publish_conent,
-                "status": this.poststatus,
+                "saved_content": this.state.saved_content,
+                "published_content": this.state.publish_content,
+                "status": this.state.poststatus,
                 "login_id": this.props.login_id,
                 "postDate": new Date
            };
@@ -101,15 +88,18 @@ class NewPost extends React.Component {
        }
 
        handleSave(event) {
-           alert("set state to 0")
            this.setState({
-               poststatus : 0
+               poststatus : 0,
+               saved_content : this.state.postData,
+               publish_content : "",
            });
        }
        handlePublish(event){
-           alert("set state to 1")
+       
            this.setState({
-              poststatus : 1
+              poststatus : 1,
+              saved_content : "",
+              publish_content : this.state.postData
            });
        }
        handleSubmit(event) {
@@ -117,13 +107,13 @@ class NewPost extends React.Component {
           
           var formData = { postTitle: this.state.postTitle,
                            postData: this.state.postData};
-
+  
           if (this._validateInput()) {
 
               this.updateFormData(formData);
               this.setState({
-                  postTitle: "", 
-                  postData:  "",
+                  postTitle: '', 
+                  postData:  '',
                   publish_conent: "",
                   saved_content: "",
                   postDate: "",
@@ -152,7 +142,7 @@ class NewPost extends React.Component {
       padding: '10px 8px',
       border: '1px solid rgba(39,41,43,.15)',
       borderRadius: 4,
-      fontSize: 15,
+      fontSize: 20,
       width: 500
       };
         var errorMessage = this._renderError();
@@ -171,16 +161,17 @@ class NewPost extends React.Component {
                      style={{width:400, height:50}}
                      type="text"
                      placeholder="new post title"
-                     value={this.state.firstName}
+                     value={this.state.postTitle}
                      onChange={(event) => this.handleChange(event, 'postTitle')} />
                 </div>
 
                 <div className="form-group" style={{color:"#101F"}}>
                   
                     <textarea   className="form-control"
-                        value={this.state.value} 
+                        value={this.state.postData} 
                         rows="10"
                         style={textareaStyle}
+                        placeholder="blog text"
                         onChange={(event) => this.handleChange(event, 'postData')} />
                  
                 </div>

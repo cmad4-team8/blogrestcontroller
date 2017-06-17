@@ -20,8 +20,8 @@ public class BRControllerMongoService {
 		host = System.getenv("db.host.name");
 		if (host == null) {
 			//default server
-			//host = "localhost";
-			host = "10.128.0.6";
+			 host = "localhost";
+			//host = "10.128.0.6";
 		}
 		String port_Str = System.getenv("db.host.port");
 		if (port_Str != null) { 

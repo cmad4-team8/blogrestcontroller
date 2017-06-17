@@ -32954,9 +32954,6 @@ var NewPost = function (_React$Component) {
     }, {
         key: '_SendLoginDeatils',
         value: function _SendLoginDeatils(form) {
-
-            alert("submitting for login id " + this.props.login_id);
-            alert("The blog data" + this.publish_content + "++" + this.saved_content);
             var blogpost = {
                 "title": form.postTitle,
                 "saved_content": this.state.saved_content,
@@ -32992,7 +32989,6 @@ var NewPost = function (_React$Component) {
     }, {
         key: 'handleSave',
         value: function handleSave(event) {
-            alert("This is save" + this.state.postData);
             this.setState({
                 poststatus: 0,
                 saved_content: this.state.postData,
@@ -33021,8 +33017,8 @@ var NewPost = function (_React$Component) {
 
                 this.updateFormData(formData);
                 this.setState({
-                    postTitle: "",
-                    postData: "",
+                    postTitle: '',
+                    postData: '',
                     publish_conent: "",
                     saved_content: "",
                     postDate: "",
@@ -33054,7 +33050,7 @@ var NewPost = function (_React$Component) {
                 padding: '10px 8px',
                 border: '1px solid rgba(39,41,43,.15)',
                 borderRadius: 4,
-                fontSize: 15,
+                fontSize: 20,
                 width: 500
             };
             var errorMessage = this._renderError();
@@ -33081,7 +33077,7 @@ var NewPost = function (_React$Component) {
                                 style: { width: 400, height: 50 },
                                 type: 'text',
                                 placeholder: 'new post title',
-                                value: this.state.firstName,
+                                value: this.state.postTitle,
                                 onChange: function onChange(event) {
                                     return _this2.handleChange(event, 'postTitle');
                                 } })
@@ -33090,9 +33086,10 @@ var NewPost = function (_React$Component) {
                             'div',
                             { className: 'form-group', style: { color: "#101F" } },
                             _react2.default.createElement('textarea', { className: 'form-control',
-                                value: this.state.value,
+                                value: this.state.postData,
                                 rows: '10',
                                 style: textareaStyle,
+                                placeholder: 'blog text',
                                 onChange: function onChange(event) {
                                     return _this2.handleChange(event, 'postData');
                                 } })

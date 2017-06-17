@@ -32915,7 +32915,7 @@ var NewPost = function (_React$Component) {
             postTitle: '', postData: '',
             user: '', postDate: '',
             saved_content: '',
-            publish_conent: '',
+            publish_content: '',
             poststatus: '',
             url: '', error: false
             /* we have to bind this */
@@ -32956,22 +32956,12 @@ var NewPost = function (_React$Component) {
         value: function _SendLoginDeatils(form) {
 
             alert("submitting for login id " + this.props.login_id);
-            if (this.poststatus == 0) {
-                this.setState({
-                    saved_content: form.postData,
-                    publish_conent: ""
-                });
-            } else {
-                this.setState({
-                    saved_content: "",
-                    publish_conent: form.postData
-                });
-            }
+            alert("The blog data" + this.publish_content + "++" + this.saved_content);
             var blogpost = {
                 "title": form.postTitle,
-                "saved_content": this.saved_content,
-                "published_content": this.publish_conent,
-                "status": this.poststatus,
+                "saved_content": this.state.saved_content,
+                "published_content": this.state.publish_content,
+                "status": this.state.poststatus,
                 "login_id": this.props.login_id,
                 "postDate": new Date()
             };
@@ -33002,15 +32992,21 @@ var NewPost = function (_React$Component) {
     }, {
         key: 'handleSave',
         value: function handleSave(event) {
+            alert("This is save" + this.state.postData);
             this.setState({
-                poststatus: 0
+                poststatus: 0,
+                saved_content: this.state.postData,
+                publish_content: ""
             });
         }
     }, {
         key: 'handlePublish',
         value: function handlePublish(event) {
+
             this.setState({
-                poststatus: 1
+                poststatus: 1,
+                saved_content: "",
+                publish_content: this.state.postData
             });
         }
     }, {

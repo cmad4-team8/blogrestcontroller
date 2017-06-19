@@ -148,9 +148,29 @@ public class UserSignupTest {
 	}
 	
 	@Test
-	public void _6_PostRetrieveall() {
+	public void _6_PostRetrieveUsrID() {
 		try {
 			List<Posts> post_list = pi.readByUserId(user, 1);
+			if (post_list == null) {
+				fail("The comments we added is not retrieved");
+			} else {
+			
+				Gson gson = new Gson();
+				// convert your list to json
+				String rtvBlogList = gson.toJson(post_list);
+				// print your generated json
+				System.out.println("rtrieved blog list: ");
+				System.out.println(rtvBlogList);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			fail("Exception while retrieving the post");
+		}
+	}
+	@Test
+	public void _7_PostRetrieveall() {
+		try {
+			List<Posts> post_list = pi.readAllPosts(1);
 			if (post_list == null) {
 				fail("The comments we added is not retrieved");
 			} else {

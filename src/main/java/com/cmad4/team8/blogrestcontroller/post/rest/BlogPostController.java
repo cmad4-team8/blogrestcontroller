@@ -25,6 +25,8 @@ import com.cmad4.team8.blogrestcontroller.post.api.Posts;
 import com.cmad4.team8.blogrestcontroller.post.api.Posts_interface;
 import com.cmad4.team8.blogrestcontroller.post.service.PostController;
 
+import jersey.repackaged.com.google.common.collect.Lists;
+
 
 
 
@@ -79,15 +81,24 @@ public class BlogPostController {
     	List<Posts> blog_list;
     	GenericEntity<List<Posts>> postentities;
     	if (login_id == null) {
+    		System.out.println("get all posts");
     		blog_list = pi.readAllPosts(pageNum);
     	} else {
     	    blog_list = pi.readByUserId(login_id, pageNum);
+    	    System.out.println("get all posts for user: " + login_id);
     	}
-    	
-    	postentities = new GenericEntity<List<Posts>>(blog_list){
+    	System.out.println("****** List all the Blogs before Iterating *********");
+    	for (int i = 0; i < blog_list.size(); i++) {
+			System.out.println(blog_list.get(i).toString());
+		}
+    	System.out.println("****** List all the Blogs after Iterating *********");
+    	postentities = new GenericEntity<List<Posts>>(blog_list){	
     		
     	};
-    	
+    	System.out.println("Downloaded List of Posts:");
+    	System.out.println(blog_list.toString());
+    	System.out.println("Serialized generic entity:");
+    	System.out.println(postentities.toString());
     	return Response.ok().entity(postentities).build();
     	
     }

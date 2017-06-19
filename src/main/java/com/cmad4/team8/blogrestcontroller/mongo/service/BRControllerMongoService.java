@@ -17,13 +17,13 @@ public class BRControllerMongoService {
 	
 	public BRControllerMongoService() throws UnknownHostException {
 		// TODO Auto-generated constructor stub
-		host = System.getenv("db.host.name");
+		host = System.getenv("mongodbserver");
 		if (host == null) {
 			//default server
-			 host = "localhost";
-			//host = "10.128.0.6";
+			//host = "localhost";
+			host = "10.128.0.6";
 		}
-		String port_Str = System.getenv("db.host.port");
+		String port_Str = System.getenv("mongodbport");
 		if (port_Str != null) { 
 			port = Integer.parseInt(port_Str);
 		} else {

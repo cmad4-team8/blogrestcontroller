@@ -1,8 +1,24 @@
 import React from 'react'
 import {Navbar, Nav,NavItem, NavDropdown, MenuItem, Glyphicon, className} from  'react-bootstrap';
-
+import NewPost from './NewPost.jsx'
 class NavigationPage  extends React.Component {
-      
+    
+     constructor(props) {
+           super(props);
+           this.state= {
+             searchResult : ""
+           }
+           this.handleSearch = this.handleSearch.bind(this);
+     }
+
+
+     handleSearch(eventKey){
+         this.setState({
+             searchResult : "This is new search"
+         });
+         $("#navsearch").show();
+     }
+
      render(){
           var style= {
              color: "#0BB"
@@ -20,7 +36,8 @@ class NavigationPage  extends React.Component {
          var searchlabel   = "Search";
          var userlabel     = "User";
 
-         const navbarInstance = (
+         return (
+             <div>
              <Navbar inverse collapseOnSelect>
                 <Navbar.Header>
                     <Navbar.Brand>
@@ -32,7 +49,7 @@ class NavigationPage  extends React.Component {
                   <Nav>
                     <NavItem eventKey={1} href="#" id="new-blog-post"><span className="navItem"><Glyphicon glyph="pencil" />{newbloglabel}</span></NavItem>
                     <NavItem eventKey={2} href="#"><span className="navItem"><Glyphicon glyph="tag" />{aboutlabel}</span></NavItem>
-                    <NavItem eventKey={4} href="#"><input type="text" className="form-control" placeholder="Search" id='search-item'/><span className="navItem"><Glyphicon glyph="search" /></span></NavItem>
+                    <NavItem eventKey={4} href="#"><input type="text" className="form-control" placeholder="Search" id='search-item'/><span className="navItem" onClick={this.handleSearch}><Glyphicon glyph="search" /></span></NavItem>
                     <NavDropdown eventKey={3} title="User" id="basic-nav-dropdown">
                         <MenuItem eventKey={3.1} id="updateProfile" >{changeprofile} </MenuItem>
                         <MenuItem eventKey={3.2}>{changeset}</MenuItem>
@@ -47,9 +64,12 @@ class NavigationPage  extends React.Component {
                     <NavItem eventKey={2} href="#" id="user-login"><span className="navItem"><Glyphicon glyph="log-in" />{loginlabel}</span></NavItem>
                   </Nav>
                 </Navbar.Collapse>
-             </Navbar>);
+             </Navbar>
+              <div id="navsearch"> <h1> {this.state.searchResult} </h1> </div>
+             </div>
+             );
 
-         return ( navbarInstance);
+         //return ( navbarInstance);
     }
 
 }

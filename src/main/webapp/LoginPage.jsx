@@ -55,11 +55,13 @@ class LoginPage extends React.Component {
                     contentType: "application/json; charset=utf-8",
                     cache: false,
                     success: function(data) {
+                        this.props.login_id= form.loginName;
                         this.setState({data: data}); // Notice this
                         console.log(JSON.parse(data));
                         alert("Loging success");
                     }.bind(this),
                     error: function(xhr, status, err) {
+                            alert("failed to login"+ form.loginName)
                             console.log(status);
                             console.log(JSON.parse(data));
                             console.error(this.props.url, status, err.toString());

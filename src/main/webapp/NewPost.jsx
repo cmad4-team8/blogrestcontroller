@@ -70,6 +70,7 @@ class NewPost extends React.Component {
                     contentType: "application/json; charset=utf-8",
                     cache: false,
                     success: function(data) {
+
                         this.setState({data: data}); // Notice this
                         console.log(JSON.parse(data));
                     }.bind(this),

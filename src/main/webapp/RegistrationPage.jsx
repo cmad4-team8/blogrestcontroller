@@ -78,7 +78,6 @@ class RegisterUser extends React.Component {
                         console.log(JSON.parse(data));
                     }.bind(this),
                     error: function(xhr, status, err) {
-                            console.log(JSON.parse(data));
                             console.error(this.props.url, status, err.toString());
                     }.bind(this),
                     data: JSON.stringify(formData)

@@ -51,9 +51,10 @@ public class PostsMorphiaDAO extends BasicDAO<Posts, Long> implements PostsMorph
 		// TODO Auto-generated method stub
 		//List<Posts> all_post = this.getDatastore().find(arg0)
 		Query<Posts> query = this.getDatastore().find(Posts.class);
-		query.or(query.criteria("status").equal("1"));
+		query.criteria("status").equal(1);
 		
 		List<Posts> user_id_posts = query.asList();
+		System.out.println("****** Number of Records received: " + user_id_posts.size() + "********");
 		
 		return user_id_posts;
 		
@@ -63,7 +64,7 @@ public class PostsMorphiaDAO extends BasicDAO<Posts, Long> implements PostsMorph
 	public List<Posts> readByUserId(String login_id, int pageNum) {
 		// TODO Auto-generated method stub
 		Query<Posts> query = this.getDatastore().find(Posts.class);
-		query.or(query.criteria("login_id").equal(login_id),query.criteria("status").equal("1"));
+		query.or(query.criteria("login_id").equal(login_id),query.criteria("status").equal(1));
 		
 		List<Posts> user_id_posts = query.asList();
 		

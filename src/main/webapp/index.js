@@ -32743,7 +32743,7 @@ var DisplayMain = function (_React$Component) {
                     console.log(this.responseXML);
                 }
             };
-            xmlhttp.open("GET", "rest/post/query?" + str, true);
+            xmlhttp.open("GET", "blog/post/query?" + str, true);
             xmlhttp.send();
             /*$.ajax({
                      dataType: 'json',
@@ -44309,7 +44309,7 @@ _reactDom2.default.render(_react2.default.createElement(_LoginPage2.default, { u
 _reactDom2.default.render(_react2.default.createElement(_RegistrationPage2.default, { url: 'rest/user/signup' }), document.getElementById('registrationPage'));
 _reactDom2.default.render(_react2.default.createElement(_NewPost2.default, { url: 'blog/post/create', login_id: '' }), document.getElementById('newpostPage'));
 _reactDom2.default.render(_react2.default.createElement(_ProfileUpdate2.default, { url: 'rest/user/prof_update' }), document.getElementById('updateprofile'));
-_reactDom2.default.render(_react2.default.createElement(_DisplayMain2.default, { url: 'rest/post/query' }), document.getElementById('blogrecords'));
+_reactDom2.default.render(_react2.default.createElement(_DisplayMain2.default, { url: 'blog/post/query' }), document.getElementById('blogrecords'));
 
 // Jquey
 

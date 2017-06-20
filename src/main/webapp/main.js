@@ -32,7 +32,8 @@ $(document).ready(function(){
        $("#login-blogger").show();
         $("#update-profile-blogger").hide();
        $("#login-blogger-post").hide();
-       $("#navsearch").hide()
+       $("#navsearch").hide();
+       $("#table-main-page").hide();
    
      });
 
@@ -44,6 +45,7 @@ $(document).ready(function(){
        $("#login-blogger-post").hide();
         $("#update-profile-blogger").hide();
         $("#navsearch").hide()
+         $("#table-main-page").show();
 
      });
 
@@ -53,6 +55,7 @@ $(document).ready(function(){
          $("#update-profile-blogger").hide();
         $("#login-blogger-post").hide();
         $("#navsearch").hide();
+         $("#table-main-page").hide();
 
      });
 
@@ -62,6 +65,7 @@ $(document).ready(function(){
          $("#update-profile-blogger").hide();
         $("#login-blogger-post").show();
         $("#navsearch").hide();
+         $("#table-main-page").hide();
     });
    
     $("#updateProfile").click(function(){
@@ -71,6 +75,7 @@ $(document).ready(function(){
         //alert("update profile")
         $("#update-profile-blogger").show();
         $("#navsearch").hide();
+         $("#table-main-page").hide();
     });
 
  

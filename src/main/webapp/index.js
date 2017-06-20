@@ -32716,76 +32716,65 @@ var DisplayMain = function (_React$Component) {
 
         var _this = _possibleConstructorReturn(this, (DisplayMain.__proto__ || Object.getPrototypeOf(DisplayMain)).call(this, props));
 
-        _this.state = {
-            updatedRecords: [],
-            pagenum: 1
-        };
-
         _this.handleSubmit = _this.handleSubmit.bind(_this);
+        _this.DisplayTable = _this.DisplayTable.bind(_this);
         return _this;
     }
 
     _createClass(DisplayMain, [{
+        key: 'componentWillMount',
+        value: function componentWillMount() {
+            this.handleSubmit();
+        }
+    }, {
         key: 'handleSubmit',
         value: function handleSubmit() {
-
-            var getdata = {
-                "pagenum": this.state.pagenum
-            };
             var str = "pagenum=1";
+            var data = {};
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", "blog/post/query?" + str, true);
+            xhr.send(null);
 
-            var xmlhttp = new XMLHttpRequest();
-            xmlhttp.onreadystatechange = function () {
-                if (this.readyState == 4 && this.status == 200) {
-                    //console.log(this)
-                    console.log(this.responseXML);
-                } else {
-                    console.log(this.responseXML);
+            xhr.onreadystatechange = function (e) {
+                if (xhr.readyState == 4) {
+                    if (!xhr.responseType || xhr.responseType === "text") {
+                        data = xhr.responseText;
+                        this.DisplayTable(data);
+                    } else if (xhr.responseType === "document") {
+                        data = xhr.responseXML;
+                        this.DisplayTable(data);
+                    } else {
+                        data = xhr.response;
+                        this.DisplayTable(data);
+                    }
                 }
-            };
-            xmlhttp.open("GET", "blog/post/query?" + str, true);
-            xmlhttp.send();
-            /*$.ajax({
-                     dataType: 'json',
-                     type: 'GET',
-                     url: this.props.url,
-                     contentType: "application/json; charset=utf-8",
-                     cache: false,
-                     success: function(data) {
-                          this.setState({data: data}); // Notice this
-                         console.log(JSON.parse(records));
-                         header=xhr;
-                         alert("HEAD: " + header, xhr)
-                     }.bind(this),
-                     error: function(xhr, status, err, data) {
-                            if(xhr.status == 404) {
-                               alert("Invalid user : "+this.props.login_id);
-                            } else {
-                              console.log(xhr); 
-                              console.log(status, err);
-                              console.error(this.props.url, status, err.toString());
-                            }
-                            alert("HEAD AND Tail: " + header + "+++" + xhr + "++")
-                            this.setState({getrecords: xhr});
-                     }.bind(this),
-                     data: JSON.stringify(getdata)
-                      });*/
+            }.bind(this);
+        }
+    }, {
+        key: 'DisplayTable',
+        value: function DisplayTable(data) {
+            //alert("display is called with>>>" + data + "JSON"+ JSON.stringify(data));
+            var post = JSON.parse(data);
+            var display = '<h1/>';
+            var i = 0;
+
+            $('#table-main-page').append('<tr><td> <blockquote><h1>' + post[i].title + '</h1><footer>' + post[i].published_content + '<br>' + post[i].postDate + '</footer></blockquote></td></tr>');
+            for (i = 1; i < post.length; i++) {
+                $('#table-main-page').append('<tr><td> <blockquote><h1>' + post[i].title + '</h1><footer>' + post[i].published_content + '<br>' + post[i].postDate + '</footer></blockquote></td></tr>'
+                //$('#row-id').append('<div class="col-sm-4"><h3>'+ post[i].status +'</h3><p>' +post[i].published_content+ '</p></div>');
+                );
+            }
+            alert("THis target" + display);
+            this.setState({
+                page: display
+            });
+            $("#table-main-page").show();
         }
     }, {
         key: 'render',
         value: function render() {
 
-            return _react2.default.createElement(
-                'div',
-                null,
-                _react2.default.createElement(
-                    'button',
-                    { type: 'submit',
-                        ref: 'submit',
-                        className: 'btn btn-success', onClick: this.handleSubmit },
-                    'Query'
-                )
-            );
+            return _react2.default.createElement('div', null);
         }
     }]);
 
@@ -44321,6 +44310,7 @@ $(document).ready(function () {
     $("#update-profile-blogger").hide();
     $("#login-blogger-post").hide();
     $("#navsearch").hide();
+    $("#table-main-page").hide();
   });
 
   $("#main-home").click(function () {
@@ -44331,6 +44321,7 @@ $(document).ready(function () {
     $("#login-blogger-post").hide();
     $("#update-profile-blogger").hide();
     $("#navsearch").hide();
+    $("#table-main-page").show();
   });
 
   $("#user-register").click(function () {
@@ -44339,6 +44330,7 @@ $(document).ready(function () {
     $("#update-profile-blogger").hide();
     $("#login-blogger-post").hide();
     $("#navsearch").hide();
+    $("#table-main-page").hide();
   });
 
   $("#new-blog-post").click(function () {
@@ -44347,6 +44339,7 @@ $(document).ready(function () {
     $("#update-profile-blogger").hide();
     $("#login-blogger-post").show();
     $("#navsearch").hide();
+    $("#table-main-page").hide();
   });
 
   $("#updateProfile").click(function () {
@@ -44356,6 +44349,7 @@ $(document).ready(function () {
     //alert("update profile")
     $("#update-profile-blogger").show();
     $("#navsearch").hide();
+    $("#table-main-page").hide();
   });
 
   /* function GetAllBlogsOnLoad(){

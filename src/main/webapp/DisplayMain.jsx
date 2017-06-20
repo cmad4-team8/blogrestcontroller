@@ -47,9 +47,9 @@ class DisplayMain extends React.Component {
         var display='<h1/>';
         var i=0;
         
-        $('#table-main-page').append('<tr><td> <blockquote><h1>'+post[i].title+'</h1><footer>'+ post[i].published_content+ '<br>' + post[i].postDate + '</footer></blockquote></td></tr>')
+        $('#table-main-page').append('<tr><td> <blockquote><h1><a href="blog/post/'+post[i].pid+'" id='+post[i].p_id+'>'+post[i].title+'</a></h1><footer>'+ post[i].published_content+ '<br>' + post[i].postDate + '</footer></blockquote></td></tr>')
         for (i = 1; i < post.length; i++) {
-            $('#table-main-page').append('<tr><td> <blockquote><h1>'+post[i].title+'</h1><footer>'+ post[i].published_content+ '<br>' + post[i].postDate + '</footer></blockquote></td></tr>')
+            $('#table-main-page').append('<tr><td> <blockquote><h1><a href="blog/post/'+post[i].pid+'" id='+post[i].p_id+'>'+post[i].title+'</a></h1><footer>'+ post[i].published_content+ '<br>' + post[i].postDate + '</footer></blockquote></td></tr>')
             //$('#row-id').append('<div class="col-sm-4"><h3>'+ post[i].status +'</h3><p>' +post[i].published_content+ '</p></div>');
         }
         alert("THis target" + display)

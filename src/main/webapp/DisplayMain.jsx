@@ -1,69 +1,55 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
+import axios from 'axios';
 
-class DisplayMain extends React.Component {   
+class DisplayMain extends React.Component {
        constructor(props) {
            super(props); 
-         this.handleSubmit=this.handleSubmit.bind(this);
-         this.DisplayTable=this.DisplayTable.bind(this);
+         //this.handleSubmit=this.handleSubmit.bind(this);
+         //this.DisplayTable=this.DisplayTable.bind(this);
+         this.handleClick=this.handleClick.bind(this);
+         this.handleFetch=this.handleFetch.bind(this);
+
+         this.state = {
+            posts: []
+            };
        }
 
     componentWillMount()
     {
-      this.handleSubmit();
+      //this.handleSubmit();
+      this.handleFetch();
 
     }
-      
-    handleSubmit() {
-          var  str="pagenum=1"
-          var data={};     
-          var xhr = new XMLHttpRequest();
-          xhr.open("GET", "blog/post/query?"+str, true);
-          xhr.send(null); 
-
-        xhr.onreadystatechange = function(e) {
-             if (xhr.readyState == 4) {
-                  if (!xhr.responseType || xhr.responseType === "text") {
-                     data = xhr.responseText;
-                     this.DisplayTable(data)
-                  } else if (xhr.responseType === "document") {
-                             data = xhr.responseXML;
-                             this.DisplayTable(data)
-                  } else {
-                         data = xhr.response;
-                         this.DisplayTable(data)
-                         
-                  }
-                    
-              }
-        }.bind(this)
-       
+     
+    handleFetch() {
+       //alert("Trying Fetch to get the data");
+       var str="pagenum=1"
+       axios.get('blog/post/query?'+str)
+                .then(res => this.setState({ posts: res.data }));
+    }
+  
+    handleClick (value) {
+        alert("Handle click is called with>>>>" + value);
+        //console.log("Handle click is called with>>>>" + value );
     }
 
-    DisplayTable(data){
-        //alert("display is called with>>>" + data + "JSON"+ JSON.stringify(data));
-        var post = JSON.parse(data);
-        var display='<h1/>';
-        var i=0;
-        
-        $('#table-main-page').append('<tr><td> <blockquote><h1><a href="blog/post/'+post[i].pid+'" id='+post[i].p_id+'>'+post[i].title+'</a></h1><footer>'+ post[i].published_content+ '<br>' + post[i].postDate + '</footer></blockquote></td></tr>')
-        for (i = 1; i < post.length; i++) {
-            $('#table-main-page').append('<tr><td> <blockquote><h1><a href="blog/post/'+post[i].pid+'" id='+post[i].p_id+'>'+post[i].title+'</a></h1><footer>'+ post[i].published_content+ '<br>' + post[i].postDate + '</footer></blockquote></td></tr>')
-            //$('#row-id').append('<div class="col-sm-4"><h3>'+ post[i].status +'</h3><p>' +post[i].published_content+ '</p></div>');
-        }
-        alert("THis target" + display)
-        this.setState({
-             page: display
-        });
-         $("#table-main-page").show();
-    }
+     /*{this.state.posts.map(post =>
+                                <li key={post.pid}>{post.title}</li>
+                              )}*/
 
 
     render(){
     
         return (
             <div>
+                  {this.state.posts.map(post =>
+                      <tr key={post.pid}><td><h1>
+                          <a href="#" key={post.id} id={post.pid} onClick={() => this.handleClick(post.pid)}>{post.title}</a>
+                          </h1><h4>  Published on: {post.postDate}</h4>
+                          </td></tr>
+                  )}
             </div>
         );
      }
@@ -75,4 +61,8 @@ DisplayMain.PropTypes = {
   
 }
 
+/*module.exports = {
+    DisplayMain: DisplayMain,
+    DisplayBlog: DisplayBlog
+}*/
 export default DisplayMain

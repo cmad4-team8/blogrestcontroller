@@ -42,7 +42,7 @@ public class UserSignupTest {
 	
 	String InvalidUser = "user1";
 	
-	
+
 	public UserSignupTest() {
 		super();
 		// TODO Auto-generated constructor stub

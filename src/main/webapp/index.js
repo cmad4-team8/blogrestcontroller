@@ -34717,23 +34717,98 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var DisplayMain = function (_React$Component) {
-    _inherits(DisplayMain, _React$Component);
+var BlogDetail = function (_React$Component) {
+    _inherits(BlogDetail, _React$Component);
+
+    function BlogDetail(props) {
+        _classCallCheck(this, BlogDetail);
+
+        var _this = _possibleConstructorReturn(this, (BlogDetail.__proto__ || Object.getPrototypeOf(BlogDetail)).call(this, props));
+
+        _this.handleFetch = _this.handleFetch.bind(_this);
+        _this.state = {
+            post: []
+        };
+        return _this;
+    }
+
+    _createClass(BlogDetail, [{
+        key: 'componentWillMount',
+        value: function componentWillMount() {
+            this.handleFetch();
+        }
+    }, {
+        key: 'handleFetch',
+        value: function handleFetch() {
+            var _this2 = this;
+
+            _axios2.default.get('blog/post/' + this.props.postid).then(function (res) {
+                return _this2.setState({ post: res.data });
+            });
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            console.log("Blog Details called with blog_id:" + this.props.postid);
+            return _react2.default.createElement(
+                'div',
+                null,
+                _react2.default.createElement(
+                    'tr',
+                    { key: this.state.post.pid },
+                    _react2.default.createElement(
+                        'td',
+                        null,
+                        _react2.default.createElement(
+                            'h1',
+                            null,
+                            this.state.post.title
+                        ),
+                        _react2.default.createElement('br', null),
+                        _react2.default.createElement(
+                            'h3',
+                            null,
+                            this.state.post.published_content
+                        ),
+                        _react2.default.createElement('br', null),
+                        _react2.default.createElement(
+                            'h4',
+                            null,
+                            '  Published on: ',
+                            this.state.post.postDate
+                        )
+                    )
+                )
+            );
+        }
+    }]);
+
+    return BlogDetail;
+}(_react2.default.Component);
+
+BlogDetail.PropTypes = {
+    postid: _propTypes2.default.number.isRequired
+
+};
+
+var DisplayMain = function (_React$Component2) {
+    _inherits(DisplayMain, _React$Component2);
 
     function DisplayMain(props) {
         _classCallCheck(this, DisplayMain);
 
         //this.handleSubmit=this.handleSubmit.bind(this);
         //this.DisplayTable=this.DisplayTable.bind(this);
-        var _this = _possibleConstructorReturn(this, (DisplayMain.__proto__ || Object.getPrototypeOf(DisplayMain)).call(this, props));
+        var _this3 = _possibleConstructorReturn(this, (DisplayMain.__proto__ || Object.getPrototypeOf(DisplayMain)).call(this, props));
 
-        _this.handleClick = _this.handleClick.bind(_this);
-        _this.handleFetch = _this.handleFetch.bind(_this);
+        _this3.handleClick = _this3.handleClick.bind(_this3);
+        _this3.handleFetch = _this3.handleFetch.bind(_this3);
 
-        _this.state = {
-            posts: []
+        _this3.state = {
+            posts: [],
+            blog_id: 0
         };
-        return _this;
+        return _this3;
     }
 
     _createClass(DisplayMain, [{
@@ -34745,19 +34820,21 @@ var DisplayMain = function (_React$Component) {
     }, {
         key: 'handleFetch',
         value: function handleFetch() {
-            var _this2 = this;
+            var _this4 = this;
 
             //alert("Trying Fetch to get the data");
             var str = "pagenum=1";
             _axios2.default.get('blog/post/query?' + str).then(function (res) {
-                return _this2.setState({ posts: res.data });
+                return _this4.setState({ posts: res.data });
             });
         }
     }, {
         key: 'handleClick',
         value: function handleClick(value) {
-            alert("Handle click is called with>>>>" + value);
-            //console.log("Handle click is called with>>>>" + value );
+            //alert("Handle click is called with>>>>" + value);
+            console.log("Handle click is called with>>>>" + value);
+            //this.state.blog_id = parseInt(value);
+            this.setState({ blog_id: parseInt(value) });
         }
 
         /*{this.state.posts.map(post =>
@@ -34767,12 +34844,13 @@ var DisplayMain = function (_React$Component) {
     }, {
         key: 'render',
         value: function render() {
-            var _this3 = this;
+            var _this5 = this;
 
+            console.log("DisplayMain rendered with blog_id:" + this.state.blog_id);
             return _react2.default.createElement(
                 'div',
                 null,
-                this.state.posts.map(function (post) {
+                this.state.blog_id == 0 && this.state.posts.map(function (post) {
                     return _react2.default.createElement(
                         'tr',
                         { key: post.pid },
@@ -34785,7 +34863,7 @@ var DisplayMain = function (_React$Component) {
                                 _react2.default.createElement(
                                     'a',
                                     { href: '#', key: post.id, id: post.pid, onClick: function onClick() {
-                                            return _this3.handleClick(post.pid);
+                                            return _this5.handleClick(post.pid);
                                         } },
                                     post.title
                                 )
@@ -34798,7 +34876,8 @@ var DisplayMain = function (_React$Component) {
                             )
                         )
                     );
-                })
+                }),
+                this.state.blog_id != 0 && _react2.default.createElement(BlogDetail, { postid: this.state.blog_id })
             );
         }
     }]);

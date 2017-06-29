@@ -42,7 +42,6 @@ public class UserSignupTest {
 	
 	String InvalidUser = "user1";
 	
-
 	public UserSignupTest() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -200,6 +199,5 @@ public class UserSignupTest {
 			fail("Not yet implemented");
 		}
 	}
-
 
 }

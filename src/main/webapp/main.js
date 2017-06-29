@@ -1,125 +1,113 @@
+import React from 'react'
+import ReactDOM from 'react-dom';
+import NavBar from './v2_app/NavigationPage.jsx'
+
+
+ReactDOM.render(<NavBar />, document.getElementById('app'));
+
+/*
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { App } from './app/app.jsx';
+import { DisplayMain } from './app/DisplayMain.jsx'
+import { TitleBarPage } from './app/TitleBarPage.jsx'
+import RegisterUser from './app/NewUser.jsx'
+import NewPageTest from './app/NewPageTest.jsx'
 
-// import  JSX files 
+import { BrowserRouter,
+         HashRouter as Router,
+         Route, IndexRoute,
+         hashHistory, browserHistory,
+         createMemoryHistory, Switch
+       } from 'react-router-dom'
 
-import LoginPage from './LoginPage.jsx';
-import NavigationPage from './NavigationPage.jsx';
-import RegisterUser from './RegistrationPage.jsx';
-import NewPost from './NewPost.jsx';
-import ProfileUpdate from './ProfileUpdate.jsx'
-import DisplayMain from './DisplayMain.jsx'
+//ReactDOM.render(<NavigationPage />, document.getElementById('navigation'));
 
+ReactDOM.render(
+    <BrowserRouter history={browserHistory}>
+       <Switch>
+          <Route    path = "/blogrestcontroller/main" component = {DisplayMain} />
+          <Route    path = "/blogrestcontroller/signup" component = {NewPageTest} />
+          <Route    path = "/blogrestcontroller" component = {App} />
+       </Switch>
+   </BrowserRouter>,
+    document.getElementById('app'));
+    */
 
+/*
+// working example
+import React from 'react'
+import ReactDOM from 'react-dom';
+import {
+  BrowserRouter as Router,
+  Route,
+  Link
+} from 'react-router-dom'
 
-// react calls
+const BasicExample = () => (
+  <Router>
+    <div>
+      <ul>
+        <li><Link to="/">Home</Link></li>
+        <li><Link to="/about">About</Link></li>
+        <li><Link to="/topics">Topics</Link></li>
+      </ul>
 
-ReactDOM.render(<NavigationPage />, document.getElementById('navigation'));
-ReactDOM.render(<LoginPage url={'rest/user/login'} />, document.getElementById('loginPage'));
-ReactDOM.render(<RegisterUser url={'rest/user/signup'} />, document.getElementById('registrationPage'));
-ReactDOM.render(<NewPost url={'blog/post/create'} login_id={''} />, document.getElementById('newpostPage'));
-ReactDOM.render(<ProfileUpdate url={'rest/user/prof_update'} />, document.getElementById('updateprofile'));
-ReactDOM.render(<DisplayMain url={'blog/post/query'} />, document.getElementById('blogrecords'));
+      <hr/>
 
+      <Route exact path="/" component={Home}/>
+      <Route path="/about" component={About}/>
+      <Route path="/topics" component={Topics}/>
+    </div>
+  </Router>
+)
 
+const Home = () => (
+  <div>
+    <h2>Home</h2>
+  </div>
+)
 
-// Jquey
+const About = () => (
+  <div>
+    <h2>About</h2>
+  </div>
+)
 
+const Topics = ({ match }) => (
+  <div>
+    <h2>Topics</h2>
+    <ul>
+      <li>
+        <Link to={`${match.url}/rendering`}>
+          Rendering with React
+        </Link>
+      </li>
+      <li>
+        <Link to={`${match.url}/components`}>
+          Components
+        </Link>
+      </li>
+      <li>
+        <Link to={`${match.url}/props-v-state`}>
+          Props v. State
+        </Link>
+      </li>
+    </ul>
 
-$(document).ready(function(){ 
-     $("#user-login").click(function(){
-       $("#register-blogger").hide();
-       $("#login-blogger").show();
-        $("#update-profile-blogger").hide();
-       $("#login-blogger-post").hide();
-       $("#navsearch").hide();
-       $("#table-main-page").hide();
-   
-     });
+    <Route path={`${match.url}/:topicId`} component={Topic}/>
+    <Route exact path={match.url} render={() => (
+      <h3>Please select a topic.</h3>
+    )}/>
+  </div>
+)
 
-     $("#main-home").click(function(){
-       
-       //$( "div[class='container']" ).hide();
-       $("#login-blogger").hide();
-       $("#register-blogger").hide();
-       $("#login-blogger-post").hide();
-        $("#update-profile-blogger").hide();
-        $("#navsearch").hide()
-         $("#table-main-page").show();
+const Topic = ({ match }) => (
+  <div>
+    <h3>{match.params.topicId}</h3>
+  </div>
+)
 
-     });
-
-     $("#user-register").click(function(){
-        $("#login-blogger").hide();
-        $("#register-blogger").show();
-         $("#update-profile-blogger").hide();
-        $("#login-blogger-post").hide();
-        $("#navsearch").hide();
-         $("#table-main-page").hide();
-
-     });
-
-    $("#new-blog-post").click(function(){
-        $("#login-blogger").hide();
-        $("#register-blogger").hide();
-         $("#update-profile-blogger").hide();
-        $("#login-blogger-post").show();
-        $("#navsearch").hide();
-         $("#table-main-page").hide();
-    });
-   
-    $("#updateProfile").click(function(){
-        $("#login-blogger").hide();
-        $("#register-blogger").hide();
-        $("#login-blogger-post").hide();
-        //alert("update profile")
-        $("#update-profile-blogger").show();
-        $("#navsearch").hide();
-         $("#table-main-page").hide();
-    });
-
- 
-   /* function GetAllBlogsOnLoad(){
-        alert("Get all records")
-           var posts={
-               "postid": ""
-           }
-           $.ajaxSetup({async: false});
-           $.ajax({
-                  
-                    dataType: 'json',
-                    type: 'GET',
-                    url: 'rest/post/query',
-                    contentType: "application/json; charset=utf-8",
-                    cache: false,
-                    success: function(data) {
-                        console.log(JSON.parse(data));
-                        header=xhr;
-                        alert("HEAD: " + header, xhr)
-                    }.bind(this),
-                    error: function(xhr, status, err) {
-                           if(xhr.status == 404) {
-                              alert("Invalid user : "+this.props.login_id);
-                           } else {
-                            console.log(xhr); 
-                            console.log(status, err);
-                            console.error(this.props.url, status, err.toString());
-                           }
-                           header=xhr;
-                           alert("HEAD AND Tail: " + header + "+++" + xhr)
-                           this.state.getrecords = header;
-                           alert("This state" + this.state.getrecords )
-                    }.bind(this),
-                    data: JSON.stringify(posts)
-            });  
-
-    };
-
-     for(var i=0;i<=10;i++) {
-            var tv='How to write Blogs and jist on it'
-            $('#table-main-page').append('<tr><td> <blockquote>'+tv + i +'<footer>'+ i + '</footer></blockquote></td></tr>');
-            $('#row-id').append('<div class="col-sm-4"><h3>'+ i +'</h3><p>' + tv + '</p></div>');
-     }*/
- });
-
-
+export default BasicExample
+ReactDOM.render(<BasicExample />, document.getElementById('app'));
+*/

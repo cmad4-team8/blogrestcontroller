@@ -1,7 +1,7 @@
 config ={
     entry: './main.js',
     output: {
-       path: '/Users/syaragat/C/Team8/blogrestcontroller/src/main/webapp/webapp',
+       path: __dirname, 
        filename: 'index.js',
     },
 

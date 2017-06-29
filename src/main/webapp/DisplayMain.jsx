@@ -41,6 +41,7 @@ class DisplayMain extends React.Component {
          //this.DisplayTable=this.DisplayTable.bind(this);
          this.handleClick=this.handleClick.bind(this);
          this.handleFetch=this.handleFetch.bind(this);
+         this.onBackButtonEvent=this.onBackButtonEvent.bind(this);
 
          this.state = {
             posts: [],
@@ -53,6 +54,14 @@ class DisplayMain extends React.Component {
       //this.handleSubmit();
       this.handleFetch();
 
+    }
+    onBackButtonEvent(e) {
+      e.preventDefault();
+     window.history.back();
+    }
+
+    componentDidMount() {
+      window.onpopstate = this.onBackButtonEvent;
     }
      
     handleFetch() {

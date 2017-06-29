@@ -31,8 +31,8 @@ class BlogDetail extends React.Component {
                   <tr key={this.state.post.pid}><td><h1>{this.state.post.title}</h1>
                    <br/><h3>{this.state.post.published_content}</h3><br/><h4>  Published on: {this.state.post.postDate}</h4>
                    </td></tr>
-                   <div><form><h1>Comments:</h1><br />
-                   <BlogComments postid={this.state.post.pid}/></form></div>
+                   <div><h1>Comments:</h1><br />
+                   <BlogComments postid={this.state.post.pid}/></div>
                   </div>
            );
     }

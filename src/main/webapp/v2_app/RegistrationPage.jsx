@@ -4,10 +4,11 @@ import PropTypes from 'prop-types';
 import axios from 'axios';
 import {BrowserRouter, Router, Link, IndexLink} from 'react-router-dom';
 import {Button, ButtonGroup, Glyphicon,Jumbotron, Table, Row, Col, Form, FormGroup,FormControl } from  'react-bootstrap';
+import * as utils from './utils.js'
 
 class RegisterUser extends Component {
-	constructor(props) {
-		super(props);
+	constructor(props,context) {
+		super(props,context);
        this.state = {
               firstName:"",
               lastName:"",
@@ -74,13 +75,15 @@ class RegisterUser extends Component {
 
                         $.ajax({
                             url: '/blogrestcontroller/rest/user/signup',
-                            dataType: 'json',
                             type: 'post',
                             contentType: "application/json; charset=utf-8",
                             cache: false,
-                            success: function(data) {
-                                this.setState({data: data}); // Notice this
-                                console.log(JSON.parse(data));
+                            success: function(data, status, xhr) {
+                            utils.addToBrowserCookie("userId", formData.login_id);
+                                this.props.callback(formData.login_id);
+                                var jwtToken = xhr.getResponseHeader("Authorization");
+                                utils.addToBrowserCookie("Authorization", jwtToken);
+                                this.context.router.history.push('/');
                             }.bind(this),
                             error: function(xhr, status, err) {
                                     console.error(this.props.url, status, err.toString());
@@ -129,7 +132,6 @@ class RegisterUser extends Component {
             return (
                 <div >
                 <h2>Blogger Signup</h2>
-                <form onSubmit={this.handleSubmit} >
                                 <div className="form-group">
                                   <input className="form-control"
                                      type="text"
@@ -203,13 +205,12 @@ class RegisterUser extends Component {
 
                                </div>
                                <div className="form-group">
-                                                 <button type="submit"
+                                                 <button onClick={this.handleSubmit}
                                                      className="btn btn-success">
                                                   Submit
                                                  </button>
                                               </div>
 
-              </form>
               </div>
             );
         }
@@ -223,6 +224,10 @@ RegisterUser.PropTypes = {
      cpassword: PropTypes.string.isRequired,
      url: PropTypes.string.isRequired
 }
+
+RegisterUser.contextTypes = {
+        router: React.PropTypes.func.isRequired
+};
 
 export default RegisterUser
 

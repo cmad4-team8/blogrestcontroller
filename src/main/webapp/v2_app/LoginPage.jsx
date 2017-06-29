@@ -3,11 +3,12 @@ import {Button, ButtonGroup, Glyphicon,Jumbotron, Table, Row, Col, Form, FormGro
 import {ControlLabel}from  'react-bootstrap'
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
 import PropTypes from 'prop-types';
+import * as utils from './utils.js'
 
 class LoginPage extends React.Component {
 
-       constructor(props) {
-           super(props);
+       constructor(props,context) {
+           super(props,context);
            this.state = {
                loginName: '', password: '',
                url: ' ', error: false
@@ -46,19 +47,26 @@ class LoginPage extends React.Component {
             
            };
 
-         
            $.ajax({
                     type: 'POST',
-                    dataType: 'json',
                     url: this.props.url,
                     contentType: "application/json; charset=utf-8",
                     cache: false,
-                    success: function(data) {
-                        this.props.login_id= form.loginName;
+                    success: function(data, status, xhr) {
+                        console.log("Login Success");
+                        utils.addToBrowserCookie("userId", logindata.login_id);
+                        this.props.callback(logindata.login_id);
+                        var jwtToken = xhr.getResponseHeader("Authorization");
+                        utils.addToBrowserCookie("Authorization", jwtToken);
+                        console.log("Updated Utils");
+                        //this.props.login_id= logindata.loginName;
+                        this.context.router.history.push('/'+logindata.login_id+'/blogs');
                         this.setState({data: data}); // Notice this
                         console.log(JSON.parse(data));
+
                     }.bind(this),
                     error: function(xhr, status, err) {
+                            console.log("Login Failure");
                             console.log(status);
                             console.log(JSON.parse(data));
                             console.error(this.props.url, status, err.toString());
@@ -66,7 +74,6 @@ class LoginPage extends React.Component {
 
                     data: JSON.stringify(logindata)
            });
-           
        }
 
        handleSubmit(event) {
@@ -103,6 +110,7 @@ class LoginPage extends React.Component {
     render(){
 
         var errorMessage = this._renderError();
+        console.log(this.props);
 
         return (
          <div >
@@ -147,6 +155,9 @@ LoginPage.PropTypes = {
      url: PropTypes.string.isRequired
 
 }
+LoginPage.contextTypes = {
+        router: React.PropTypes.func.isRequired
+};
 export default LoginPage;
 
 

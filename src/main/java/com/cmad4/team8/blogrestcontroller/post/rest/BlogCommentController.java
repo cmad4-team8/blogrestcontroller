@@ -70,6 +70,7 @@ public class BlogCommentController {
     {
     	List<Comments> cmt_list;
     	GenericEntity<List<Comments>> postentities;
+    	System.out.println("Retrieval of comment called");
     	if (login_id != null) {
     	    cmt_list = ci.readallbyuser(login_id, pageNum);
     	} else {

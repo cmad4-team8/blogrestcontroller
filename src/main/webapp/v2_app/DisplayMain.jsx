@@ -30,7 +30,7 @@ class DisplayMain extends Component {
 				<ul>
                   {this.state.posts.map(post =>
                       <li key={post.pid}>
-                      <Link to="/blog/{post.pid}" id="{post.pid}">
+                      <Link to={"/blog/"+post.pid} key={post.id} id={post.pid} >
 						<h1>{post.title}
                           </h1></Link><h4>  Published on: {post.postDate}</h4>
 						</li>

@@ -44,7 +44,7 @@ const nav_routes = [
         main: () => <h2>You have Successfully Logged out !!!</h2>
       },
   { path: '/blog/:id',
-        main: () => <BlogDetail url={'rest/user/post'} />
+        main: () => <BlogDetail url={'post/'} />
       },
   { path: '/help',
           main: () => <h2>Help will be given to those who ask for it</h2>

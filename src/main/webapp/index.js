@@ -89895,6 +89895,7 @@ var BlogDetail = function (_React$Component) {
     }, {
         key: 'render',
         value: function render() {
+
             return _react2.default.createElement(
                 'div',
                 null,
@@ -89926,13 +89927,12 @@ var BlogDetail = function (_React$Component) {
                 ),
                 _react2.default.createElement(
                     'div',
-                    null,
+                    { style: { backgroundColor: 'grey' } },
                     _react2.default.createElement(
-                        'h1',
+                        'h2',
                         null,
                         'Comments:'
                     ),
-                    _react2.default.createElement('br', null),
                     _react2.default.createElement(_comments2.default, { postid: this.state.post.pid })
                 )
             );

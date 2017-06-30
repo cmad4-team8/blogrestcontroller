@@ -4,13 +4,13 @@ import {Button, ButtonGroup, Glyphicon,Jumbotron, Table, Row, Col, Form, FormGro
 import {ControlLabel, Input} from  'react-bootstrap'
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
 import PropTypes from 'prop-types';
-
+import * as utils from './utils.js'
 
 
 class NewPost extends React.Component {
 
-       constructor(props) {
-           super(props);
+       constructor(props,context) {
+           super(props,context);
            this.state = {
                postTitle: '', postData: '',
                user: '', postDate: '',
@@ -56,7 +56,7 @@ class NewPost extends React.Component {
                 "saved_content": this.state.saved_content,
                 "published_content": this.state.publish_content,
                 "status": this.state.poststatus,
-                "login_id": this.props.login_id,
+                "login_id": utils.getSignedInUser(),
                 "postDate": new Date
            };
 
@@ -71,7 +71,8 @@ class NewPost extends React.Component {
                     success: function(data) {
 
                         this.setState({data: data}); // Notice this
-                        console.log(JSON.parse(data));
+                        console.log(data);
+                        this.context.router.history.push('/');
                     }.bind(this),
                     error: function(xhr, status, err) {
                            if(xhr.status == 404) {
@@ -205,6 +206,9 @@ NewPost.PropTypes = {
 
 }
 
+NewPost.contextTypes = {
+        router: React.PropTypes.func.isRequired
+};
 export default NewPost;
 
 
